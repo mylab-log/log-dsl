@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLab.LogDsl", "MyLab.LogDsl\MyLab.LogDsl.csproj", "{7952C7EB-1B5E-4265-A7DC-07511DD161C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLab.LogDsl.Tests", "MyLab.LogDsl.Tests\MyLab.LogDsl.Tests.csproj", "{98B243D6-926B-4634-B1E5-DDD7F80CE6C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7952C7EB-1B5E-4265-A7DC-07511DD161C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7952C7EB-1B5E-4265-A7DC-07511DD161C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7952C7EB-1B5E-4265-A7DC-07511DD161C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7952C7EB-1B5E-4265-A7DC-07511DD161C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B243D6-926B-4634-B1E5-DDD7F80CE6C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B243D6-926B-4634-B1E5-DDD7F80CE6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B243D6-926B-4634-B1E5-DDD7F80CE6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B243D6-926B-4634-B1E5-DDD7F80CE6C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26EC397F-11F2-4C3F-B57A-37EC1A3F905C}
+	EndGlobalSection
+EndGlobal
