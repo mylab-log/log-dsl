@@ -11,7 +11,7 @@ namespace MyLab.LogDsl.Tests
             //Arrange
             Guid logInstanceId = Guid.Empty;
 
-            var logger = GetLogger((level, id, logEntity, e, formatter) =>
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) =>
             {
                 logInstanceId = logEntity.InstanceId;
             });
@@ -30,7 +30,7 @@ namespace MyLab.LogDsl.Tests
             Guid specified = Guid.NewGuid();
             Guid logInstanceId = Guid.Empty;
 
-            var logger = GetLogger((level, id, logEntity, e, formatter) => { logInstanceId = logEntity.InstanceId; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { logInstanceId = logEntity.InstanceId; });
 
             //Act
             logger.Act("some thing").Write(specified);
@@ -38,5 +38,6 @@ namespace MyLab.LogDsl.Tests
             //Assert
             Assert.Equal(specified, logInstanceId);
         }
+
     }
 }

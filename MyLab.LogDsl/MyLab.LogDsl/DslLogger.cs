@@ -12,14 +12,14 @@ namespace MyLab.LogDsl
         /// <summary>
         /// Get original logger
         /// </summary>
-        public ILogger OriginLogger { get; private set; }
+        readonly ILogger _originLogger;
 
         /// <summary>
         /// Initializes a new instance of <see cref="DslLogger"/>
         /// </summary>
         public DslLogger(ILogger originLogger)
         {
-            OriginLogger = originLogger;
+            _originLogger = originLogger;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace MyLab.LogDsl
         /// </summary>
         public DslLogEntityBuilder Act(EventId eventId)
         {
-            return new DslLogEntityBuilder(OriginLogger, new ActDslLogBuilderStrategy())
+            return new DslLogEntityBuilder(_originLogger, new ActDslLogBuilderStrategy())
             {
                 EventId = eventId.Id,
                 Message = eventId.Name
@@ -39,7 +39,7 @@ namespace MyLab.LogDsl
         /// </summary>
         public DslLogEntityBuilder Error(EventId eventId, Exception exception = null)
         {
-            var b = new DslLogEntityBuilder(OriginLogger, new ErrorDslLogBuilderStrategy())
+            var b = new DslLogEntityBuilder(_originLogger, new ErrorDslLogBuilderStrategy(exception))
             {
                 EventId = eventId.Id,
                 Message = eventId.Name
@@ -47,17 +47,25 @@ namespace MyLab.LogDsl
 
             if (exception != null)
             {
-                b = b.AndFactIs(AttributeNames.ExceptionType, exception.GetType().FullName)
-                     .AndFactIs(AttributeNames.ExceptionStackTrace, exception.StackTrace)
-                     .AndFactIs(AttributeNames.ExceptionMessage, exception.Message);
+                b.AndFactIs(AttributeNames.ExceptionType, exception.GetType().FullName)
+                 .AndFactIs(AttributeNames.ExceptionStackTrace, exception.StackTrace)
+                 .AndFactIs(AttributeNames.ExceptionMessage, exception.Message);
                 var be = exception.GetBaseException();
 
                 if (be != null && be != exception)
                 {
-                    b = b.AndFactIs(AttributeNames.BaseExceptionType, be.GetType().FullName)
+                    b.AndFactIs(AttributeNames.BaseExceptionType, be.GetType().FullName)
                         .AndFactIs(AttributeNames.BaseExceptionStackTrace, be.StackTrace)
                         .AndFactIs(AttributeNames.BaseExceptionMessage, be.Message);
                 }
+
+                b.InstanceId = exception.GetId();
+
+                foreach (var marker in exception.GetMarkers())
+                    b.AndMarkAs(marker);
+
+                foreach (var condition in exception.GetConditions())
+                    b.AndFactIs(condition.Key, condition.Value);
             }
 
             return b;
@@ -68,7 +76,7 @@ namespace MyLab.LogDsl
         /// </summary>
         public DslLogEntityBuilder Debug(EventId eventId)
         {
-            var b = new DslLogEntityBuilder(OriginLogger, new DebugDslLogBuilderStrategy())
+            var b = new DslLogEntityBuilder(_originLogger, new DebugDslLogBuilderStrategy())
             {
                 EventId = eventId.Id,
                 Message = eventId.Name
