@@ -76,13 +76,11 @@ namespace MyLab.LogDsl
         /// </summary>
         public DslLogEntityBuilder Debug(EventId eventId)
         {
-            var b = new DslLogEntityBuilder(_originLogger, new DebugDslLogBuilderStrategy())
+            return new DslLogEntityBuilder(_originLogger, new DebugDslLogBuilderStrategy())
             {
                 EventId = eventId.Id,
                 Message = eventId.Name
             }.AndMarkAs(Markers.Debug);
-
-            return b;
         }
     }
 }
