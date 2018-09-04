@@ -11,7 +11,7 @@ namespace MyLab.LogDsl.Tests
             //Arrange
             LogEntity le = null;
 
-            var logger = GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
 
             //Act
             logger.Act("foo").Write();
@@ -27,7 +27,7 @@ namespace MyLab.LogDsl.Tests
             //Arrange
             LogEntity le = null;
 
-            var logger = GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
 
             //Act
             logger.Act(123).Write();

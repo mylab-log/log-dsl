@@ -13,7 +13,7 @@ namespace MyLab.LogDsl.Tests
             //Arrange
             LogEntity le = null;
 
-            var logger = GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
 
             //Act
             logger.Act("some thing")
@@ -31,7 +31,7 @@ namespace MyLab.LogDsl.Tests
             int val = 50;
             LogEntity le = null;
 
-            var logger = GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
 
             //Act
             logger.Act("some thing").AndFactIs(() => val != 20).Write();
@@ -48,7 +48,7 @@ namespace MyLab.LogDsl.Tests
             LogEntity le = null;
             object value = new object();
 
-            var logger = GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
 
             //Act
             logger.Act("some thing").AndFactIs("name", value).Write();
@@ -65,7 +65,7 @@ namespace MyLab.LogDsl.Tests
             //Arrange
             LogEntity le = null;
             
-            var logger = GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
 
             var ex = new Exception("foo");
 
@@ -95,7 +95,7 @@ namespace MyLab.LogDsl.Tests
             //Arrange
             LogEntity le = null;
 
-            var logger = GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { le = logEntity; });
 
             var bex = new Exception("bar");
             var ex = new Exception("foo", bex);

@@ -19,6 +19,15 @@ namespace MyLab.LogDsl
         /// <summary>
         /// Event identifier
         /// </summary>
+        public Guid InstanceId
+        {
+            get => _entity.InstanceId;
+            set => _entity.InstanceId = value;
+        }
+
+        /// <summary>
+        /// Event identifier
+        /// </summary>
         public int EventId
         {
             get => _entity.EventId;
@@ -42,19 +51,23 @@ namespace MyLab.LogDsl
             _entity = new LogEntity();
         }
 
-        private DslLogEntityBuilder(DslLogEntityBuilder origin)
-        {
-            _logger = origin._logger;
-            _strategy = origin._strategy;
-            _entity = origin._entity.Clone();
-        }
-
         /// <summary>
         /// Writes log entity to logger
         /// </summary>
         public void Write(Guid? logInstanceId = null)
         {
-            var e = _entity.Clone(logInstanceId ?? Guid.NewGuid());
+            Guid resId;
+                
+            if(logInstanceId != null)
+                resId = logInstanceId.Value;
+            else
+            {
+                resId = _entity.InstanceId != Guid.Empty
+                    ? _entity.InstanceId
+                    : Guid.NewGuid();
+            }
+            
+            var e = _entity.Clone(resId);
             _strategy.WriteLogEntity(_logger, e);
         }
 
@@ -63,9 +76,8 @@ namespace MyLab.LogDsl
         /// </summary>
         public DslLogEntityBuilder AndMarkAs(string marker)
         {
-            var clone = new DslLogEntityBuilder(this);
-            clone._entity.Markers.Add(marker);
-            return clone;
+            _entity.Markers.Add(marker);
+            return this;
         }
 
         /// <summary>
@@ -75,12 +87,9 @@ namespace MyLab.LogDsl
         {
             if (string.IsNullOrWhiteSpace(condition))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(condition));
+            _entity.Conditions.Add(condition);
 
-            var clone = new DslLogEntityBuilder(this);
-
-            clone._entity.Conditions.Add(condition);
-
-            return clone;
+            return this;
         }
 
         /// <summary>
@@ -88,11 +97,9 @@ namespace MyLab.LogDsl
         /// </summary>
         public DslLogEntityBuilder AndFactIs(string key, object value)
         {
-            var clone = new DslLogEntityBuilder(this);
+            _entity.CustomConditions.Add(new LogEntityCustomCondition(key, value));
 
-            clone._entity.CustomConditions.Add(new LogEntityCustomCondition(key, value));
-
-            return clone;
+            return this;
         }
 
         /// <summary>
@@ -102,11 +109,9 @@ namespace MyLab.LogDsl
         {
             string conditionDescription = ExpressionToString(condition);
 
-            var clone = new DslLogEntityBuilder(this);
+            _entity.Conditions.Add(conditionDescription);
 
-            clone._entity.Conditions.Add(conditionDescription);
-
-            return clone;
+            return this;
         }
 
         static string ExpressionToString(Expression<Func<bool>> expression)
