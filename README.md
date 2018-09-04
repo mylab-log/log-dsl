@@ -154,8 +154,68 @@ info: Demo.Example[0]
       Markers: important
 ```
 
+## Rich Exception
+
+At middle place where exception pass through, you can add conditions and makers for it. And those additional parameters will fall in log:
+
+```C#
+TopLevelActon();
+
+void BottomLevelAction()
+{
+    throw new Exception("SQL server error")
+        .AndMarkAs("db-error");
+}
+
+void MiddleLevelAction()
+{
+    try
+    {
+        BottomLevelAction();
+    }
+    catch (Exception e)
+    {
+        e.AndFactIs("userId", 100)
+            .AndMarkAs("vip-client");
+        throw;
+    }
+}
+
+void TopLevelActon()
+{
+    try
+    {
+        MiddleLevelAction();
+    }
+    catch (Exception e)
+    {
+        _log.Error(e)
+            .AndFactIs("ip", "90.109.220.01")
+            .Write();
+    }
+}
+```
+
+Console output:
+
+```
+fail: Demo.Example[0]
+      SQL server error
+      Id: 5c34b1b9-49c9-4e5b-ab0f-4c5e33cc89b2
+      Markers: error, db-error, vip-client
+      userId: 100
+      ip: 90.109.220.01
+
+System.Exception: SQL server error
+   at Demo.Example.<Example7_WithExceptionParameters>g__BottomLevelAction|8_0() in D:\Projects\my\mylab-log-dsl\MyLab.LogDsl\Demo\Example.cs:line 73
+   at Demo.Example.<Example7_WithExceptionParameters>g__MiddleLevelAction|8_1() in D:\Projects\my\mylab-log-dsl\MyLab.LogDsl\Demo\Example.cs:line 81
+   at Demo.Example.<Example7_WithExceptionParameters>g__TopLevelActon|8_2() in D:\Projects\my\mylab-log-dsl\MyLab.LogDsl\Demo\Example.cs:line 95
+```
+
+
+
 ## PS
 
 The max profit you can get when using [MyLab.LogYml](https://github.com/ozzy-ext/mylab-log-yml) together.
 
-All examples above sored in `Demo` project.
+All examples above you can find in `Demo` project.

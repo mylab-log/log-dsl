@@ -24,6 +24,7 @@ namespace Demo
             example.Example4_ErrorWithException();
             example.Example5_WithConditions();
             example.Example6_WithMarkers();
+            example.Example7_WithExceptionParameters();
 
             Console.ReadKey(true);
         }
