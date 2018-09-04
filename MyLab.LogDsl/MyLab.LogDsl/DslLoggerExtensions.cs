@@ -25,6 +25,22 @@ namespace MyLab.LogDsl
         }
 
         /// <summary>
+        /// Creates act log entity 
+        /// </summary>
+        public static DslLogEntityBuilder Debug(this DslLogger logger, string msg)
+        {
+            return logger.Debug(new EventId(0, msg));
+        }
+
+        /// <summary>
+        /// Creates act log entity 
+        /// </summary>
+        public static DslLogEntityBuilder Debug(this DslLogger logger, int eventId)
+        {
+            return logger.Debug(new EventId(eventId));
+        }
+
+        /// <summary>
         /// Creates error log entity 
         /// </summary>
         public static DslLogEntityBuilder Error(this DslLogger logger, Exception exception)
