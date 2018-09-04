@@ -11,7 +11,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="Moq" Version="4.9.0" />
     <PackageReference Include="MyLab" Version="1.0.1" />
-    <PackageReference Include="MyLab.Logging" Version="1.1.0" />
+    <PackageReference Include="MyLab.Logging" Version="1.1.4" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
