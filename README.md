@@ -156,7 +156,7 @@ info: Demo.Example[0]
 
 ## Rich Exception
 
-At middle place where exception pass through, you can add conditions and makers for it. And those additional parameters will fall in log:
+At middle place where exception pass through, you can add conditions and markers for it. And those additional parameters will fall in log:
 
 ```C#
 TopLevelActon();
