@@ -9,15 +9,15 @@
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/ozzy-ext/mylab-log-dsl</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.1.2.0</AssemblyVersion>
-    <FileVersion>1.1.2.0</FileVersion>
-    <Version>1.1.2</Version>
+    <AssemblyVersion>1.1.4.0</AssemblyVersion>
+    <FileVersion>1.1.4.0</FileVersion>
+    <Version>1.1.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="MyLab" Version="1.0.1" />
-    <PackageReference Include="MyLab.Logging" Version="1.1.4" />
+    <PackageReference Include="MyLab.Logging" Version="1.2.8" />
   </ItemGroup>
 
 </Project>

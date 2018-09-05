@@ -41,7 +41,7 @@ _log.Act("I did it").Write();
 In console we got
 ```
 info: Demo.Example[0]
-      I did it.
+      I did it
       Id: a8ba4eae-246c-4f35-84fb-6041d806aec7
 ```
 
@@ -57,7 +57,7 @@ Console output:
 
 ```
 dbug: Demo.Example[0]
-      I did debug.
+      I did debug
       Id: 108c3b58-22b8-4bb0-8b29-1f547cdfaead
       Markers: debug
 ```
@@ -74,7 +74,7 @@ Console output:
 
 ```
 fail: Demo.Example[0]
-      Something wrong.
+      Something wrong
       Id: e1f68823-6fdd-4c48-904d-77a2864109af
       Markers: error
 ```
@@ -129,10 +129,10 @@ Console output:
 ```
 dbug: Demo.Example[0]
       I did debug
-      Id: 2b931e6d-9243-49e3-9eab-16ddea52ad29
+      Id: 862ce7cd-f37c-43b0-89a0-136f443a31ac
       Markers: debug
-      Conditions: I'm tired, 'debugParameter1 > 5' is False, 'debugParameter2 > 5' is True
       Debug password: very secret password
+      Conditions: I'm tired, 'debugParameter1 > 5' is False, 'debugParameter2 > 5' is True
 ```
 
 ## Markers
