@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
+using MyLab;
 using MyLab.LogDsl;
 
 namespace Demo
@@ -61,6 +62,45 @@ namespace Demo
             _log.Act("I did it")
                 .AndMarkAs("important")
                 .Write();
+        }
+
+        public void Example7_WithExceptionParameters()
+        {
+            TopLevelActon();
+
+            void BottomLevelAction()
+            {
+                throw new Exception("SQL server error")
+                    .AndMarkAs("db-error");
+            }
+
+            void MiddleLevelAction()
+            {
+                try
+                {
+                    BottomLevelAction();
+                }
+                catch (Exception e)
+                {
+                    e.AndFactIs("userId", 100)
+                     .AndMarkAs("vip-client");
+                    throw;
+                }
+            }
+
+            void TopLevelActon()
+            {
+                try
+                {
+                    MiddleLevelAction();
+                }
+                catch (Exception e)
+                {
+                    _log.Error(e)
+                        .AndFactIs("ip", "90.109.220.01")
+                        .Write();
+                }
+            }
         }
     }
 }

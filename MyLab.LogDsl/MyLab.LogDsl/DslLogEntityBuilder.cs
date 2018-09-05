@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
@@ -14,41 +15,34 @@ namespace MyLab.LogDsl
         private readonly ILogger _logger;
         private readonly IDslLogBuilderStrategy _strategy;
 
-        readonly LogEntity _entity;
+        private readonly List<LogEntityAttribute> _attributes  = new List<LogEntityAttribute>();
+        private readonly List<string> _markers  = new List<string>();
+        private readonly List<string> _conditions  = new List<string>();
+        
+        /// <summary>
+        /// Event identifier
+        /// </summary>
+        public Guid InstanceId { get; set; }
 
         /// <summary>
         /// Event identifier
         /// </summary>
-        public Guid InstanceId
-        {
-            get => _entity.InstanceId;
-            set => _entity.InstanceId = value;
-        }
-
-        /// <summary>
-        /// Event identifier
-        /// </summary>
-        public int EventId
-        {
-            get => _entity.EventId;
-            set => _entity.EventId = value;
-        }
+        public int EventId { get; set; }
 
         /// <summary>
         /// Event message
         /// </summary>
-        public string Message
-        {
-            get => _entity.Message;
-            set => _entity.Message = value;
-        }
+        public string Message { get; set; }
+
+        /// <summary>
+        /// Event time
+        /// </summary>
+        public DateTime Time { get; set; } = DateTime.Now;
 
         internal DslLogEntityBuilder(ILogger logger, IDslLogBuilderStrategy strategy)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
-
-            _entity = new LogEntity();
         }
 
         /// <summary>
@@ -62,13 +56,34 @@ namespace MyLab.LogDsl
                 resId = logInstanceId.Value;
             else
             {
-                resId = _entity.InstanceId != Guid.Empty
-                    ? _entity.InstanceId
+                resId = InstanceId != Guid.Empty
+                    ? InstanceId
                     : Guid.NewGuid();
             }
-            
-            var e = _entity.Clone(resId);
-            _strategy.WriteLogEntity(_logger, e);
+
+            var le = new LogEntity
+            {
+                Id = resId,
+                Time = Time,
+                EventId = EventId,
+                Content = Message
+            };
+
+            if(_markers.Count != 0)
+                le.Markers = new List<string>(_markers);
+            if(_attributes.Count != 0)
+                le.Attributes = new List<LogEntityAttribute>(_attributes);
+            if (_conditions.Count != 0)
+            {
+                var condAttr = new ConditionsLogEntityAttribute(_conditions);
+
+                if (_attributes.Count != 0)
+                    le.Attributes.Add(condAttr);
+                else
+                    le.Attributes = new List<LogEntityAttribute> {condAttr};
+            }
+
+            _strategy.WriteLogEntity(_logger, le);
         }
 
         /// <summary>
@@ -76,7 +91,7 @@ namespace MyLab.LogDsl
         /// </summary>
         public DslLogEntityBuilder AndMarkAs(string marker)
         {
-            _entity.Markers.Add(marker);
+            _markers.Add(marker);
             return this;
         }
 
@@ -87,7 +102,7 @@ namespace MyLab.LogDsl
         {
             if (string.IsNullOrWhiteSpace(condition))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(condition));
-            _entity.Conditions.Add(condition);
+            _conditions.Add(condition);
 
             return this;
         }
@@ -95,9 +110,9 @@ namespace MyLab.LogDsl
         /// <summary>
         /// Specifies condition at that moment
         /// </summary>
-        public DslLogEntityBuilder AndFactIs(string key, object value)
+        public DslLogEntityBuilder AndFactIs(string name, object value)
         {
-            _entity.CustomConditions.Add(new LogEntityCustomCondition(key, value));
+            _attributes.Add(new LogEntityAttribute(name, value));
 
             return this;
         }
@@ -109,7 +124,7 @@ namespace MyLab.LogDsl
         {
             string conditionDescription = ExpressionToString(condition);
 
-            _entity.Conditions.Add(conditionDescription);
+            _conditions.Add(conditionDescription);
 
             return this;
         }

@@ -13,7 +13,7 @@ namespace MyLab.LogDsl.Tests
 
             var logger = Tools.GetLogger((level, id, logEntity, e, formatter) =>
             {
-                logInstanceId = logEntity.InstanceId;
+                logInstanceId = logEntity.Id;
             });
 
             //Act
@@ -30,7 +30,7 @@ namespace MyLab.LogDsl.Tests
             Guid specified = Guid.NewGuid();
             Guid logInstanceId = Guid.Empty;
 
-            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { logInstanceId = logEntity.InstanceId; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { logInstanceId = logEntity.Id; });
 
             //Act
             logger.Act("some thing").Write(specified);

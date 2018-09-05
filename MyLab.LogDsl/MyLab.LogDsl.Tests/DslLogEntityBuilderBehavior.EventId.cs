@@ -18,7 +18,7 @@ namespace MyLab.LogDsl.Tests
 
             //Assert
             Assert.Equal(0, le.EventId);
-            Assert.Equal("foo", le.Message);
+            Assert.Equal("foo", le.Content);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace MyLab.LogDsl.Tests
 
             //Assert
             Assert.Equal(123, le.EventId);
-            Assert.Null(le.Message);
+            Assert.Null(le.Content);
         }
     }
 }

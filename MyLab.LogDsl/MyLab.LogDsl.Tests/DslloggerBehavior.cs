@@ -13,7 +13,7 @@ namespace MyLab.LogDsl.Tests
             var ex = new Exception();
             Guid logInstanceId = Guid.Empty;
 
-            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { logInstanceId = logEntity.InstanceId; });
+            var logger = Tools.GetLogger((level, id, logEntity, e, formatter) => { logInstanceId = logEntity.Id; });
 
             //Act
             logger.Error(ex).Write();
@@ -39,7 +39,7 @@ namespace MyLab.LogDsl.Tests
 
             //Assert
             Assert.NotNull(le);
-            Assert.Contains(le.CustomConditions, ca => ca.Name == "foo" && (string) ca.Value == "bar");
+            Assert.Contains(le.Attributes, ca => ca.Name == "foo" && (string) ca.Value == "bar");
         }
 
         [Fact]

@@ -41,7 +41,7 @@ _log.Act("I did it").Write();
 In console we got
 ```
 info: Demo.Example[0]
-      I did it.
+      I did it
       Id: a8ba4eae-246c-4f35-84fb-6041d806aec7
 ```
 
@@ -57,7 +57,7 @@ Console output:
 
 ```
 dbug: Demo.Example[0]
-      I did debug.
+      I did debug
       Id: 108c3b58-22b8-4bb0-8b29-1f547cdfaead
       Markers: debug
 ```
@@ -74,7 +74,7 @@ Console output:
 
 ```
 fail: Demo.Example[0]
-      Something wrong.
+      Something wrong
       Id: e1f68823-6fdd-4c48-904d-77a2864109af
       Markers: error
 ```
@@ -129,10 +129,10 @@ Console output:
 ```
 dbug: Demo.Example[0]
       I did debug
-      Id: 2b931e6d-9243-49e3-9eab-16ddea52ad29
+      Id: 862ce7cd-f37c-43b0-89a0-136f443a31ac
       Markers: debug
-      Conditions: I'm tired, 'debugParameter1 > 5' is False, 'debugParameter2 > 5' is True
       Debug password: very secret password
+      Conditions: I'm tired, 'debugParameter1 > 5' is False, 'debugParameter2 > 5' is True
 ```
 
 ## Markers
@@ -154,8 +154,68 @@ info: Demo.Example[0]
       Markers: important
 ```
 
+## Rich Exception
+
+At middle place where exception pass through, you can add conditions and makers for it. And those additional parameters will fall in log:
+
+```C#
+TopLevelActon();
+
+void BottomLevelAction()
+{
+    throw new Exception("SQL server error")
+        .AndMarkAs("db-error");
+}
+
+void MiddleLevelAction()
+{
+    try
+    {
+        BottomLevelAction();
+    }
+    catch (Exception e)
+    {
+        e.AndFactIs("userId", 100)
+            .AndMarkAs("vip-client");
+        throw;
+    }
+}
+
+void TopLevelActon()
+{
+    try
+    {
+        MiddleLevelAction();
+    }
+    catch (Exception e)
+    {
+        _log.Error(e)
+            .AndFactIs("ip", "90.109.220.01")
+            .Write();
+    }
+}
+```
+
+Console output:
+
+```
+fail: Demo.Example[0]
+      SQL server error
+      Id: 5c34b1b9-49c9-4e5b-ab0f-4c5e33cc89b2
+      Markers: error, db-error, vip-client
+      userId: 100
+      ip: 90.109.220.01
+
+System.Exception: SQL server error
+   at Demo.Example.<Example7_WithExceptionParameters>g__BottomLevelAction|8_0() in D:\Projects\my\mylab-log-dsl\MyLab.LogDsl\Demo\Example.cs:line 73
+   at Demo.Example.<Example7_WithExceptionParameters>g__MiddleLevelAction|8_1() in D:\Projects\my\mylab-log-dsl\MyLab.LogDsl\Demo\Example.cs:line 81
+   at Demo.Example.<Example7_WithExceptionParameters>g__TopLevelActon|8_2() in D:\Projects\my\mylab-log-dsl\MyLab.LogDsl\Demo\Example.cs:line 95
+```
+
+
+
 ## PS
 
 The max profit you can get when using [MyLab.LogYml](https://github.com/ozzy-ext/mylab-log-yml) together.
 
-All examples above sored in `Demo` project.
+All examples above you can find in `Demo` project.

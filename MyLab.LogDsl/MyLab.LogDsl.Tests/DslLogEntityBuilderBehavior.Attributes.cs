@@ -21,7 +21,12 @@ namespace MyLab.LogDsl.Tests
                 .Write();
 
             //Assert
-            Assert.Contains(le.Conditions, s => s == "foo");
+
+            var conditions = (string)le.Attributes
+                .Find(a => a.Name == LogAttributeNames.ConditionsAttributeName)
+                .Value;
+
+            Assert.Contains("foo", conditions);
         }
 
         [Fact]
@@ -38,7 +43,12 @@ namespace MyLab.LogDsl.Tests
 
             //Assert
             Assert.NotNull(le);
-            Assert.Contains(le.Conditions, s => s == "'val != 20' is True");
+
+            var conditions = (string)le.Attributes
+                .Find(a => a.Name == LogAttributeNames.ConditionsAttributeName)
+                .Value;
+
+            Assert.Contains("'val != 20' is True", conditions);
         }
 
         [Fact]
@@ -52,7 +62,7 @@ namespace MyLab.LogDsl.Tests
 
             //Act
             logger.Act("some thing").AndFactIs("name", value).Write();
-            var cc = le.CustomConditions.FirstOrDefault(c => c.Name == "name");
+            var cc = le.Attributes.FirstOrDefault(c => c.Name == "name");
 
             //Assert
             Assert.NotNull(cc);
@@ -75,9 +85,9 @@ namespace MyLab.LogDsl.Tests
             //Assert
             Assert.NotNull(le);
 
-            var em = le.CustomConditions.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionMessage);
-            var et = le.CustomConditions.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionType);
-            var es = le.CustomConditions.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionStackTrace);
+            var em = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionMessage);
+            var et = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionType);
+            var es = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionStackTrace);
 
             Assert.NotNull(em);
             Assert.Equal(em.Value, ex.Message);
@@ -106,9 +116,9 @@ namespace MyLab.LogDsl.Tests
             //Assert
             Assert.NotNull(le);
 
-            var em = le.CustomConditions.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionMessage);
-            var et = le.CustomConditions.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionType);
-            var es = le.CustomConditions.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionStackTrace);
+            var em = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionMessage);
+            var et = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionType);
+            var es = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionStackTrace);
 
             Assert.NotNull(em);
             Assert.Equal(em.Value, bex.Message);
