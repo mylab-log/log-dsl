@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using MyLab.Logging;
 
@@ -9,6 +11,8 @@ namespace MyLab.LogDsl
     /// </summary>
     public class DslLogger
     {
+        internal static string CreateAggregatedExceptionAttrName(string attrName, int index) => attrName + "-aggr-" + index;
+        
         /// <summary>
         /// Get original logger
         /// </summary>
@@ -47,28 +51,79 @@ namespace MyLab.LogDsl
 
             if (exception != null)
             {
-                b.AndFactIs(AttributeNames.ExceptionType, exception.GetType().FullName)
-                 .AndFactIs(AttributeNames.ExceptionStackTrace, exception.StackTrace)
-                 .AndFactIs(AttributeNames.ExceptionMessage, exception.Message);
-                var be = exception.GetBaseException();
-
-                if (be != null && be != exception)
+                FillExceptionData(b, exception);
+                
+                if (exception is AggregateException aEx)
                 {
-                    b.AndFactIs(AttributeNames.BaseExceptionType, be.GetType().FullName)
-                        .AndFactIs(AttributeNames.BaseExceptionStackTrace, be.StackTrace)
-                        .AndFactIs(AttributeNames.BaseExceptionMessage, be.Message);
+                    b.AndMarkAs(Markers.AggregationException);
+
+                    var exColl = aEx.InnerExceptions;
+                    
+                    if (exColl.Count != 1)
+                    {
+                        for (int i = 0; i < exColl.Count; i++)
+                        {
+                            FillExceptionData(b, exColl[i], i);
+                        }
+                    }
                 }
 
-                b.InstanceId = exception.GetId();
+                if (b.InstanceId == Guid.Empty)
+                    b.AndMarkAs(Markers.ExceptionHasNoIdentifier);
+            }
+            
+            return b;
+        }
 
-                foreach (var marker in exception.GetMarkers())
-                    b.AndMarkAs(marker);
+        void FillExceptionData(DslLogEntityBuilder b, Exception e, int index = -1)
+        {
+            b.AndFactIs(AttrNm(AttributeNames.ExceptionType), e.GetType().FullName)
+                .AndFactIs(AttrNm(AttributeNames.ExceptionStackTrace), e.StackTrace)
+                .AndFactIs(AttrNm(AttributeNames.ExceptionMessage), e.Message);
+            var be = e.GetBaseException();
 
-                foreach (var condition in exception.GetConditions())
-                    b.AndFactIs(condition.Key, condition.Value);
+            if (be != null && be != e)
+            {
+                b.AndFactIs(AttrNm(AttributeNames.BaseExceptionType), be.GetType().FullName)
+                    .AndFactIs(AttrNm(AttributeNames.BaseExceptionStackTrace), be.StackTrace)
+                    .AndFactIs(AttrNm(AttributeNames.BaseExceptionMessage), be.Message)
+                    .AndMarkAs(Markers.HasInnerException);
             }
 
-            return b;
+            if (b.InstanceId == Guid.Empty)
+            {
+                var detectedId = GetIdDeep(e);
+                if(detectedId != null)
+                    b.InstanceId = detectedId.Value;
+            }
+
+            foreach (var marker in e.GetMarkers())
+                b.AndMarkAs(marker);
+
+            foreach (var condition in GetConditionsDeep(e))
+                b.AndFactIs(condition.Key, condition.Value);
+            
+            string AttrNm(string attrName) => index < 0 
+                ? attrName 
+                : CreateAggregatedExceptionAttrName(attrName, index);
+
+            IEnumerable<ExceptionCondition> GetConditionsDeep(Exception e1)
+            {
+                return e1.InnerException != null
+                    ? e1.GetConditions().Union(GetConditionsDeep(e1.InnerException))
+                    : e1.GetConditions();
+            }
+
+            Guid? GetIdDeep(Exception e2)
+            {
+                if (e2.HasId())
+                    return e2.GetId();
+
+                if (e2.InnerException != null)
+                    return GetIdDeep(e2.InnerException);
+
+                return null;
+            } 
         }
 
         /// <summary>
