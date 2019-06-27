@@ -50,80 +50,11 @@ namespace MyLab.LogDsl
             }.AndMarkAs(Markers.Error);
 
             if (exception != null)
-            {
-                FillExceptionData(b, exception);
-                
-                if (exception is AggregateException aEx)
-                {
-                    b.AndMarkAs(Markers.AggregationException);
-
-                    var exColl = aEx.InnerExceptions;
-                    
-                    if (exColl.Count != 1)
-                    {
-                        for (int i = 0; i < exColl.Count; i++)
-                        {
-                            FillExceptionData(b, exColl[i], i);
-                        }
-                    }
-                }
-
-                if (b.InstanceId == Guid.Empty)
-                    b.AndMarkAs(Markers.ExceptionHasNoIdentifier);
-            }
+                b.AndFactIs(
+                    AttributeNames.Exception, 
+                    ExceptionDto.Create(exception));
             
             return b;
-        }
-
-        void FillExceptionData(DslLogEntityBuilder b, Exception e, int index = -1)
-        {
-            b.AndFactIs(AttrNm(AttributeNames.ExceptionType), e.GetType().FullName)
-                .AndFactIs(AttrNm(AttributeNames.ExceptionStackTrace), e.StackTrace)
-                .AndFactIs(AttrNm(AttributeNames.ExceptionMessage), e.Message);
-            var be = e.GetBaseException();
-
-            if (be != null && be != e)
-            {
-                b.AndFactIs(AttrNm(AttributeNames.BaseExceptionType), be.GetType().FullName)
-                    .AndFactIs(AttrNm(AttributeNames.BaseExceptionStackTrace), be.StackTrace)
-                    .AndFactIs(AttrNm(AttributeNames.BaseExceptionMessage), be.Message)
-                    .AndMarkAs(Markers.HasInnerException);
-            }
-
-            if (b.InstanceId == Guid.Empty)
-            {
-                var detectedId = GetIdDeep(e);
-                if(detectedId != null)
-                    b.InstanceId = detectedId.Value;
-            }
-
-            foreach (var marker in e.GetMarkers())
-                b.AndMarkAs(marker);
-
-            foreach (var condition in GetConditionsDeep(e))
-                b.AndFactIs(condition.Key, condition.Value);
-            
-            string AttrNm(string attrName) => index < 0 
-                ? attrName 
-                : CreateAggregatedExceptionAttrName(attrName, index);
-
-            IEnumerable<ExceptionCondition> GetConditionsDeep(Exception e1)
-            {
-                return e1.InnerException != null
-                    ? e1.GetConditions().Union(GetConditionsDeep(e1.InnerException))
-                    : e1.GetConditions();
-            }
-
-            Guid? GetIdDeep(Exception e2)
-            {
-                if (e2.HasId())
-                    return e2.GetId();
-
-                if (e2.InnerException != null)
-                    return GetIdDeep(e2.InnerException);
-
-                return null;
-            } 
         }
 
         /// <summary>
