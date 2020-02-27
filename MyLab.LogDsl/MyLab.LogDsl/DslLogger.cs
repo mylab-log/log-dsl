@@ -11,8 +11,6 @@ namespace MyLab.LogDsl
     /// </summary>
     public class DslLogger
     {
-        internal static string CreateAggregatedExceptionAttrName(string attrName, int index) => attrName + "-aggr-" + index;
-        
         /// <summary>
         /// Get original logger
         /// </summary>

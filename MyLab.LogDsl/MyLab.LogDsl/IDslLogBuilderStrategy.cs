@@ -8,3 +8,4 @@ namespace MyLab.LogDsl
         void WriteLogEntity(ILogger logger, LogEntity entity);
     }
 }
+

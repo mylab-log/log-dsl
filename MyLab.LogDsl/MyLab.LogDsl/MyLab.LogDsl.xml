@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyLab.LogDsl</name>
+    </assembly>
+    <members>
+        <member name="T:MyLab.LogDsl.DslLogEntityBuilder">
+            <summary>
+            Build log entity
+            </summary>
+        </member>
+        <member name="P:MyLab.LogDsl.DslLogEntityBuilder.InstanceId">
+            <summary>
+            Event identifier
+            </summary>
+        </member>
+        <member name="P:MyLab.LogDsl.DslLogEntityBuilder.EventId">
+            <summary>
+            Event identifier
+            </summary>
+        </member>
+        <member name="P:MyLab.LogDsl.DslLogEntityBuilder.Message">
+            <summary>
+            Event message
+            </summary>
+        </member>
+        <member name="P:MyLab.LogDsl.DslLogEntityBuilder.Time">
+            <summary>
+            Event time
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogEntityBuilder.Write(System.Nullable{System.Guid})">
+            <summary>
+            Writes log entity to logger
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogEntityBuilder.AndMarkAs(System.String)">
+            <summary>
+            Adds marker for log entity
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogEntityBuilder.AndFactIs(System.String)">
+            <summary>
+            Specifies condition at that moment
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogEntityBuilder.AndFactIs(System.String,System.Object)">
+            <summary>
+            Specifies condition at that moment
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogEntityBuilder.AndFactIs(System.Linq.Expressions.Expression{System.Func{System.Boolean}})">
+            <summary>
+            Specifies condition at that moment
+            </summary>
+        </member>
+        <member name="T:MyLab.LogDsl.DslLogger">
+            <summary>
+            Provides abilities for DSL using when writing a log
+            </summary>
+        </member>
+        <member name="F:MyLab.LogDsl.DslLogger._originLogger">
+            <summary>
+            Get original logger
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogger.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of <see cref="T:MyLab.LogDsl.DslLogger"/>
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogger.Act(Microsoft.Extensions.Logging.EventId)">
+            <summary>
+            Creates act log entity 
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogger.Error(Microsoft.Extensions.Logging.EventId,System.Exception)">
+            <summary>
+            Creates error log entity 
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLogger.Debug(Microsoft.Extensions.Logging.EventId)">
+            <summary>
+            Creates debug log entity 
+            </summary>
+        </member>
+        <member name="T:MyLab.LogDsl.DslLoggerExtensions">
+            <summary>
+            Extension for <see cref="T:MyLab.LogDsl.DslLogger"/>
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLoggerExtensions.Act(MyLab.LogDsl.DslLogger,System.String)">
+            <summary>
+            Creates act log entity 
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLoggerExtensions.Act(MyLab.LogDsl.DslLogger,System.Int32)">
+            <summary>
+            Creates act log entity 
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLoggerExtensions.Debug(MyLab.LogDsl.DslLogger,System.String)">
+            <summary>
+            Creates act log entity 
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLoggerExtensions.Debug(MyLab.LogDsl.DslLogger,System.Int32)">
+            <summary>
+            Creates act log entity 
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLoggerExtensions.Error(MyLab.LogDsl.DslLogger,System.Exception)">
+            <summary>
+            Creates error log entity 
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLoggerExtensions.Error(MyLab.LogDsl.DslLogger,System.String,System.Exception)">
+            <summary>
+            Creates error log entity 
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.DslLoggerExtensions.Error(MyLab.LogDsl.DslLogger,System.Int32,System.Exception)">
+            <summary>
+            Creates error log entity 
+            </summary>
+        </member>
+        <member name="T:MyLab.LogDsl.LoggerExtensions">
+            <summary>
+            Extensions for <see cref="T:Microsoft.Extensions.Logging.ILogger`1"/>
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.LoggerExtensions.Dsl``1(Microsoft.Extensions.Logging.ILogger{``0})">
+            <summary>
+            Gets DSL logger for .NET Core logger
+            </summary>
+        </member>
+        <member name="M:MyLab.LogDsl.LoggerExtensions.Dsl(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Gets DSL logger for .NET Core logger
+            </summary>
+        </member>
+    </members>
+</doc>
