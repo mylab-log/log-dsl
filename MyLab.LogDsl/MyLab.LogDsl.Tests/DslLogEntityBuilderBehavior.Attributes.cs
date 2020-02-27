@@ -85,18 +85,14 @@ namespace MyLab.LogDsl.Tests
             //Assert
             Assert.NotNull(le);
 
-            var em = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionMessage);
-            var et = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionType);
-            var es = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.ExceptionStackTrace);
+            var a = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.Exception);
 
-            Assert.NotNull(em);
-            Assert.Equal(em.Value, ex.Message);
+            var exDto = a?.Value as ExceptionDto;
 
-            Assert.NotNull(et);
-            Assert.Equal(et.Value, ex.GetType().FullName);
-
-            Assert.NotNull(es);
-            Assert.Equal(es.Value, ex.StackTrace);
+            Assert.NotNull(exDto);
+            Assert.Equal(ex.Message, exDto.Message);
+            Assert.Equal(ex.GetType().FullName, exDto.Type);
+            Assert.Equal(ex.StackTrace, exDto.StackTrace);
         }
 
         [Fact]
@@ -116,18 +112,14 @@ namespace MyLab.LogDsl.Tests
             //Assert
             Assert.NotNull(le);
 
-            var em = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionMessage);
-            var et = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionType);
-            var es = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.BaseExceptionStackTrace);
+            var a = le.Attributes.FirstOrDefault(cc => cc.Name == AttributeNames.Exception);
 
-            Assert.NotNull(em);
-            Assert.Equal(em.Value, bex.Message);
+            var exDto = a?.Value as ExceptionDto;
 
-            Assert.NotNull(et);
-            Assert.Equal(et.Value, bex.GetType().FullName);
-
-            Assert.NotNull(es);
-            Assert.Equal(es.Value, bex.StackTrace);
+            Assert.NotNull(exDto);
+            Assert.Equal(ex.Message, exDto.Message);
+            Assert.Equal(ex.GetType().FullName, exDto.Type);
+            Assert.Equal(ex.StackTrace, exDto.StackTrace);
         }
     }
 }

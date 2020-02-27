@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using MyLab;
 using MyLab.LogDsl;
+using MyLab.Logging;
 
 namespace Demo
 {

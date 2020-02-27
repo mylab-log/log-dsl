@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using MyLab.Logging;
 
@@ -46,28 +48,10 @@ namespace MyLab.LogDsl
             }.AndMarkAs(Markers.Error);
 
             if (exception != null)
-            {
-                b.AndFactIs(AttributeNames.ExceptionType, exception.GetType().FullName)
-                 .AndFactIs(AttributeNames.ExceptionStackTrace, exception.StackTrace)
-                 .AndFactIs(AttributeNames.ExceptionMessage, exception.Message);
-                var be = exception.GetBaseException();
-
-                if (be != null && be != exception)
-                {
-                    b.AndFactIs(AttributeNames.BaseExceptionType, be.GetType().FullName)
-                        .AndFactIs(AttributeNames.BaseExceptionStackTrace, be.StackTrace)
-                        .AndFactIs(AttributeNames.BaseExceptionMessage, be.Message);
-                }
-
-                b.InstanceId = exception.GetId();
-
-                foreach (var marker in exception.GetMarkers())
-                    b.AndMarkAs(marker);
-
-                foreach (var condition in exception.GetConditions())
-                    b.AndFactIs(condition.Key, condition.Value);
-            }
-
+                b.AndFactIs(
+                    AttributeNames.Exception, 
+                    ExceptionDto.Create(exception));
+            
             return b;
         }
 
