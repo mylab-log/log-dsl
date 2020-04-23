@@ -1,6 +1,6 @@
 # MyLab.LogDsl 
 
-For .NET Core 2.1+
+For .NET Standard 2.0+, .NET Framework 4.6.1+, .NET Core 2.0+
 
 [![NuGet](https://img.shields.io/nuget/v/MyLab.LogDsl.svg)](https://www.nuget.org/packages/MyLab.LogDsl/)
 
