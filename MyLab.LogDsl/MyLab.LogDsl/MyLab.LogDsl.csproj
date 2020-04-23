@@ -6,9 +6,9 @@
     <PackageProjectUrl>https://github.com/ozzy-ext-mylab/log-dsl</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ozzy-ext-mylab/log-dsl.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.1.0.3040</AssemblyVersion>
-    <Version>2.1.0</Version>
-    <FileVersion>2.1.0.2304</FileVersion>
+    <AssemblyVersion>2.2.0.2304</AssemblyVersion>
+    <Version>2.2.0</Version>
+    <FileVersion>2.2.0.2304</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
