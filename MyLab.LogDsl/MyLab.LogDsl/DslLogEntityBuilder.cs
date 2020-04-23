@@ -50,9 +50,16 @@ namespace MyLab.LogDsl
         /// </summary>
         public void Write(Guid? logInstanceId = null)
         {
+            var le = Create(logInstanceId);
+
+            _strategy.WriteLogEntity(_logger, le);
+        }
+
+        public LogEntity Create(Guid? logInstanceId = null)
+        {
             Guid resId;
-                
-            if(logInstanceId != null)
+
+            if (logInstanceId != null)
                 resId = logInstanceId.Value;
             else
             {
@@ -69,9 +76,9 @@ namespace MyLab.LogDsl
                 Content = Message
             };
 
-            if(_markers.Count != 0)
+            if (_markers.Count != 0)
                 le.Markers = new List<string>(_markers);
-            if(_attributes.Count != 0)
+            if (_attributes.Count != 0)
                 le.Attributes = new List<LogEntityAttribute>(_attributes);
             if (_conditions.Count != 0)
             {
@@ -80,10 +87,10 @@ namespace MyLab.LogDsl
                 if (_attributes.Count != 0)
                     le.Attributes.Add(condAttr);
                 else
-                    le.Attributes = new List<LogEntityAttribute> {condAttr};
+                    le.Attributes = new List<LogEntityAttribute> { condAttr };
             }
 
-            _strategy.WriteLogEntity(_logger, le);
+            return le;
         }
 
         /// <summary>
