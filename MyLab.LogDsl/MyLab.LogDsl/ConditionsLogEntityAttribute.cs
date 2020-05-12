@@ -7,7 +7,7 @@ namespace MyLab.LogDsl
     class ConditionsLogEntityAttribute : LogEntityAttribute
     {
         public ConditionsLogEntityAttribute(IEnumerable<string> conditions) 
-            : base(LogAttributeNames.ConditionsAttributeName, string.Join(", ", conditions))
+            : base(AttributeNames.Conditions, string.Join(", ", conditions))
         {
         }
     }
