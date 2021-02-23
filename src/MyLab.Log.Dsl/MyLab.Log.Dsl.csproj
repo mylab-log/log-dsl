@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Andrey O.</Authors>
-    <PackageProjectUrl>https://github.com/ozzy-ext-mylab/log-dsl</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ozzy-ext-mylab/log-dsl.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/mylab-log/log-dsl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mylab-log/log-dsl.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <AssemblyVersion>2.2.0.2304</AssemblyVersion>
     <Version>2.2.0</Version>

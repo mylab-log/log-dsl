@@ -23,7 +23,7 @@ namespace MyLab.LogDsl.Tests
             //Assert
 
             var conditions = (string)le.Attributes
-                .Find(a => a.Name == LogAttributeNames.ConditionsAttributeName)
+                .Find(a => a.Name == AttributeNames.Conditions)
                 .Value;
 
             Assert.Contains("foo", conditions);
@@ -45,7 +45,7 @@ namespace MyLab.LogDsl.Tests
             Assert.NotNull(le);
 
             var conditions = (string)le.Attributes
-                .Find(a => a.Name == LogAttributeNames.ConditionsAttributeName)
+                .Find(a => a.Name == AttributeNames.Conditions)
                 .Value;
 
             Assert.Contains("'val != 20' is True", conditions);

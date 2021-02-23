@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLab.LogDsl.Tests", "MyLab.LogDsl.Tests\MyLab.LogDsl.Tests.csproj", "{98B243D6-926B-4634-B1E5-DDD7F80CE6C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{98B243D6-926B-4634-B1E5-DDD7F80CE6C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{7EDE558E-00E0-426A-8893-51AD288854BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLab.LogDsl", "MyLab.LogDsl\MyLab.LogDsl.csproj", "{AC9B2130-76B3-45BD-9939-78DA3CFAABD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLab.Log.Dsl", "MyLab.Log.Dsl\MyLab.Log.Dsl.csproj", "{AC9B2130-76B3-45BD-9939-78DA3CFAABD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

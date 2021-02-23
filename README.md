@@ -1,8 +1,8 @@
-# MyLab.LogDsl 
+# MyLab.Log.Dsl 
 
 For .NET Standard 2.0+, .NET Framework 4.6.1+, .NET Core 2.0+
 
-[![NuGet](https://img.shields.io/nuget/v/MyLab.LogDsl.svg)](https://www.nuget.org/packages/MyLab.LogDsl/)
+[![NuGet](https://img.shields.io/nuget/v/MyLab.Log.Dsl.svg)](https://www.nuget.org/packages/MyLab.Log.Dsl/)
 
 Provides abilities to make log message by `Domain Specific Language` style. Uses buil-in `.NET Core` logging.
 
