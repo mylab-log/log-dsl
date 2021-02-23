@@ -15,15 +15,15 @@ namespace Demo
             var lf = serviceProvider.GetService<ILoggerFactory>();
             var logger = lf.CreateLogger<Example>();
 
-            var example = new Example(logger);
+            //var example = new Example(logger);
 
-            example.Example1_SimpleAct();
-            example.Example2_SimpleDebug();
-            example.Example3_SimpleError();
-            example.Example4_ErrorWithException();
-            example.Example5_WithConditions();
-            example.Example6_WithMarkers();
-            example.Example7_WithExceptionParameters();
+            //example.Example1_SimpleAct();
+            //example.Example2_SimpleDebug();
+            //example.Example3_SimpleError();
+            //example.Example4_ErrorWithException();
+            //example.Example5_WithConditions();
+            //example.Example6_WithMarkers();
+            //example.Example7_WithExceptionParameters();
 
             Console.ReadKey(true);
         }
