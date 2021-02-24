@@ -38,6 +38,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="MyLab.Log" Version="3.0.3" />
     <PackageReference Include="MyLab.Logging" Version="2.1.0" />
   </ItemGroup>
 

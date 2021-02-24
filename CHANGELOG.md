@@ -13,4 +13,3 @@ Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 * Renaming `MyLab.LogDsl` -> `MyLab.Log.Dsl`
-* Change integration in built-in .net core logging
