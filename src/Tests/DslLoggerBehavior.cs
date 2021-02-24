@@ -41,16 +41,16 @@ namespace Tests
             switch (levelKey)
             {
                 case "debug": 
-                    expr = logger.Debug("Foo");
+                    expr = logger.Debug("Trigger was triggered");
                     break;
                 case "act":
-                    expr = logger.Action("Foo");
+                    expr = logger.Action("I did it!");
                     break;
                 case "warning":
-                    expr = logger.Warning("Foo");
+                    expr = logger.Warning("Invalid client request");
                     break;
                 case "error":
-                    expr = logger.Error("Foo");
+                    expr = logger.Error("Backend server connection error");
                     break;
                 default: 
                     throw new IndexOutOfRangeException();
@@ -184,6 +184,38 @@ namespace Tests
 
             //Assert
             Assert.Equal("true", log.Labels["bar"]);
+        }
+
+        [Fact]
+        public void FactDemo()
+        {
+            //Arrange
+            var logger = CreateCoreLogger().Dsl();
+            int debugParameter = 1;
+
+            //Act
+
+            logger
+                .Action("Something done")
+                .AndFactIs("foo", "bar")
+                .AndFactIs("The day is rainy")
+                .AndFactIs(() => debugParameter > 5)
+                .Write();
+        }
+
+        [Fact]
+        public void LabelDemo()
+        {
+            //Arrange
+            var logger = CreateCoreLogger().Dsl();
+
+            //Act
+
+            logger
+                .Action("Something done")
+                .AndLabel("priority", "high")
+                .AndLabel("good_message")
+                .Write();
         }
     }
 }
