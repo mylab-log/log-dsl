@@ -23,21 +23,5 @@ namespace MyLab.Log.Dsl
         /// Begin DSL expression for error log-event
         /// </summary>
         DslExpression Error(string message);
-        /// <summary>
-        /// Begin DSL expression for warning log-event
-        /// </summary>
-        DslExpression Warning(string message, Exception reasonException);
-        /// <summary>
-        /// Begin DSL expression for error log-event
-        /// </summary>
-        DslExpression Error(string message, Exception reasonException);
-        /// <summary>
-        /// Begin DSL expression for warning log-event
-        /// </summary>
-        DslExpression Warning(Exception reasonException);
-        /// <summary>
-        /// Begin DSL expression for error log-event
-        /// </summary>
-        DslExpression Error(Exception reasonException);
     }
 }
