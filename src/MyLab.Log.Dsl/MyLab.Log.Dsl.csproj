@@ -3,13 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Andrey O.</Authors>
-    <PackageProjectUrl>https://github.com/ozzy-ext-mylab/log-dsl</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ozzy-ext-mylab/log-dsl.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/mylab-log/log-dsl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mylab-log/log-dsl.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>2.2.0.2304</AssemblyVersion>
-    <Version>2.2.0</Version>
-    <FileVersion>2.2.0.2304</FileVersion>
+    <AssemblyVersion>3.0.1.2402</AssemblyVersion>
+    <Version>3.0.1</Version>
+    <FileVersion>3.0.1.2402</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>log.png</PackageIcon>
+    <Description>Provides abilities to make log message by `Domain Specific Language` style. Uses buil-in `.NET Core` logging.</Description>
+    <PackageTags>log logging dsl</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,7 +38,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MyLab.Logging" Version="2.0.0" />
+    <PackageReference Include="MyLab.Log" Version="3.0.3" />
+    <PackageReference Include="MyLab.Logging" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="log.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

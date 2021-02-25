@@ -9,13 +9,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="Moq" Version="4.9.0" />
-    <PackageReference Include="MyLab.Logging" Version="2.0.0" />
+    <PackageReference Include="MyLab.Logging" Version="2.1.0" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyLab.LogDsl\MyLab.LogDsl.csproj" />
+    <ProjectReference Include="..\MyLab.Log.Dsl\MyLab.Log.Dsl.csproj" />
   </ItemGroup>
 
 </Project>
