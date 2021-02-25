@@ -170,7 +170,7 @@ Example:
 ```C#
 _log.Action("Something done")
     .AndLabel("priority", "high")
-    .AndFactIs("good_message")
+    .AndLabel("good_message")
     .Write();
 ```
 
