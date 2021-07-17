@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.1.2] - 2021-07-17
+
+### Changed
+
+* Remove exception logging because it writes to console addition to log content
+
 ## [3.1.1] - 2021-06-22
 
 ### Changed

@@ -159,7 +159,7 @@ namespace MyLab.Log.Dsl
 
         public void Write()
         {
-            _coreLogger.Log(GetLogLevel(), default, Create(), ReasonException, LogEntityFormatter.Yaml);
+            _coreLogger.Log(GetLogLevel(), default, Create(), null, LogEntityFormatter.Yaml);
         }
 
         private LogLevel GetLogLevel()
