@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.2.2] - 2021-10-20
+
+### Added
+
+* DI injection
+
+### Changed
+
+* `ILogger.Dsl()` has become obsolete
+
 ## [3.1.2] - 2021-07-17
 
 ### Changed

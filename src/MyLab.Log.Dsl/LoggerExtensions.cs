@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 
 namespace MyLab.Log.Dsl
 {
@@ -10,6 +11,7 @@ namespace MyLab.Log.Dsl
         /// <summary>
         /// Create DSL-logger for core logger
         /// </summary>
+        [Obsolete("Use DI instead: services.AddDslLog() and DI with IDslLogger<TCat>", true)]
         public static IDslLogger Dsl(this ILogger coreLogger)
         {
             return new DslLogger(coreLogger);

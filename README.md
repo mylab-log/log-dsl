@@ -16,9 +16,11 @@ There are several points about it:
 
 ## Review
 
-The typically pints is:
+The typically points is:
 
-*  get `IDslLogger`
+* add `DSL` into logging system
+
+*  get `IDslLogger` with `DI`
 * write `dsl` expression with special methods
   * begin from log-level method to define log-level specific parameters
   * set reason exception 
@@ -29,11 +31,15 @@ The typically pints is:
 The following example shows how to use `dsl` logger:
 
 ```C#
+services.AddLogging(l => l.AddDsl());
+```
+
+```C#
 class Example
 {
     private IDslLogger _log;
 
-    public Example(ILogger<Example> logger)
+    public Example(IDslLogger<Example> logger)
     {
         _log = logger.Dsl();
     }

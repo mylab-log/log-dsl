@@ -6,13 +6,21 @@
     <PackageProjectUrl>https://github.com/mylab-log/log-dsl</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mylab-log/log-dsl.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>3.1.2.1707</AssemblyVersion>
-    <Version>3.1.2</Version>
-    <FileVersion>3.1.2.1707</FileVersion>
+    <AssemblyVersion>3.2.2.2010</AssemblyVersion>
+    <Version>3.2.2</Version>
+    <FileVersion>3.2.2.2010</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIcon>log.png</PackageIcon>
     <Description>Provides abilities to make log message by `Domain Specific Language` style. Uses buil-in `.NET Core` logging.</Description>
     <PackageTags>log logging dsl</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>.\MyLab.Log.Dsl.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>.\MyLab.Log.Dsl.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

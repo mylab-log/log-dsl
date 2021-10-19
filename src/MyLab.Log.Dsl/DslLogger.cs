@@ -7,6 +7,13 @@ namespace MyLab.Log.Dsl
     {
         private readonly ILogger _coreLogger;
 
+        public DslLogger(ILoggerFactory coreLoggerFactory)
+        {
+            if (coreLoggerFactory == null) throw new ArgumentNullException(nameof(coreLoggerFactory));
+
+            _coreLogger = coreLoggerFactory.CreateLogger("");
+        }
+
         public DslLogger(ILogger coreLogger)
         {
             _coreLogger = coreLogger ?? throw new ArgumentNullException(nameof(coreLogger));
@@ -44,6 +51,13 @@ namespace MyLab.Log.Dsl
         {
             if (string.IsNullOrWhiteSpace(val))
                 throw new ArgumentException("Value cannot be null or whitespace.", "message");
+        }
+    }
+
+    class DslLogger<TCategoryName> : DslLogger, IDslLogger<TCategoryName>
+    {
+        public DslLogger(ILogger<TCategoryName> coreLogger) : base(coreLogger)
+        {
         }
     }
 }

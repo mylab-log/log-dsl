@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyLab.Log.Dsl;
 using Xunit.Abstractions;
 
 namespace Tests
@@ -14,16 +15,17 @@ namespace Tests
             _output = output;
         }
 
-        private ILogger CreateCoreLogger()
+        private IDslLogger CreateCoreLogger()
         {
             var services = new ServiceCollection()
                 .AddLogging(c => c
+                    .AddDsl()
                     .AddProvider(new TestLoggerProvider(_output))
                     .SetMinimumLevel(LogLevel.Debug)
                 )
                 .BuildServiceProvider();
 
-            return services.GetService<ILogger<DslLoggerBehavior>>();
+            return services.GetService<IDslLogger<DslLoggerBehavior>>();
         }
 
         private class TestLoggerProvider : ILoggerProvider
