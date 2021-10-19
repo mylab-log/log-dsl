@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyLab.Log;
@@ -11,15 +12,27 @@ namespace Tests
 {
     public partial class DslLoggerInjectionBehavior
     {
+        private readonly ITestOutputHelper _output;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="DslLoggerInjectionBehavior"/>
+        /// </summary>
+        public DslLoggerInjectionBehavior(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
         [Fact]
         public void ShouldIntegrateDslLogger()
         {
             //Arrange
+            var lInstance = new TestLogger();
+
             var sc = new ServiceCollection()
                 .AddLogging(l => l
                     .AddDsl()
                     .AddXUnit(_output)
-                    .AddProvider(new TestLoggerProvider()))
+                    .AddProvider(new TestLoggerProvider(lInstance)))
                 .BuildServiceProvider();
 
             //Act
@@ -28,18 +41,20 @@ namespace Tests
             l.Error("foo").Write();
 
             //Assert
-            Assert.Equal("foo", TestLogger.Instance.LastMessage.Message);
+            Assert.Equal("foo", lInstance.LastMessage.Message);
         }
 
         [Fact]
         public void ShouldIntegrateDslLoggerWithCategory()
         {
             //Arrange
+            var lInstance = new TestLogger();
+
             var sc = new ServiceCollection()
                 .AddLogging(l => l
                     .AddDsl()
                     .AddXUnit(_output)
-                    .AddProvider(new TestLoggerProvider()))
+                    .AddProvider(new TestLoggerProvider(lInstance)))
                 .BuildServiceProvider();
 
             //Act
@@ -48,7 +63,7 @@ namespace Tests
             l.Error("foo").Write();
 
             //Assert
-            Assert.Equal("foo", TestLogger.Instance.LastMessage.Message);
+            Assert.Equal("foo", lInstance.LastMessage.Message);
         }
     }
 }

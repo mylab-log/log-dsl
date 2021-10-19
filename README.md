@@ -189,3 +189,29 @@ Labels:
   priority: high
   good_message: true
 ```
+
+## Contexts
+
+To apply some context parameter for each log message use `context appliers`. 
+
+Context applier is a scoped service which class implement `IDslLogContextApplier`:
+
+```C#
+/// <summary>
+/// Applies context parameters to <see cref="DslExpression"/>
+/// </summary>
+public interface IDslLogContextApplier
+{
+    /// <summary>
+    /// Applies context parameters to specified <see cref="DslExpression"/>
+    /// </summary>
+    DslExpression Apply(DslExpression dslExpression);
+}
+```
+
+Use `AddDslLogContext` method to integrate context applier into services:
+
+```C#
+services.AddDslLogContext<MyCtxApplier>();
+```
+

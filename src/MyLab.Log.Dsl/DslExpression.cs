@@ -14,6 +14,7 @@ namespace MyLab.Log.Dsl
     public class DslExpression
     {
         private readonly ILogger _coreLogger;
+        private readonly IEnumerable<IDslLogContextApplier> _contexts;
 
         /// <summary>
         /// Log message
@@ -48,9 +49,10 @@ namespace MyLab.Log.Dsl
         /// <summary>
         /// Initializes a new instance of <see cref="DslExpression"/>
         /// </summary>
-        public DslExpression(ILogger coreLogger, string message, string logLevelLabel = null)
+        public DslExpression(ILogger coreLogger, string message, IEnumerable<IDslLogContextApplier> contexts, string logLevelLabel = null)
         {
             _coreLogger = coreLogger;
+            _contexts = contexts;
             Message = message;
             LogLevelLabel = logLevelLabel;
         }
@@ -130,33 +132,27 @@ namespace MyLab.Log.Dsl
             return clone;
         }
 
+        /// <summary>
+        /// Creates <see cref="LogEntity"/> with collected parameters
+        /// </summary>
         public LogEntity Create()
         {
-            var log = new LogEntity
+            if (_contexts != null)
             {
-                Exception = ReasonException,
-                Message = Message
-            };
+                var tmpExpression = Clone();
 
-            foreach (var label in Labels)
-                log.Labels.Add(label.Key, label.Value);
+                foreach (var dslLogContextApplier in _contexts)
+                    tmpExpression = dslLogContextApplier.Apply(tmpExpression);
 
-            foreach (var fact in Facts)
-                log.Facts.Add(fact.Key, fact.Value);
-
-            if (Conditions.Count != 0)
-            {
-                log.Facts.Add(PredefinedFacts.Conditions, Conditions.ToArray());
+                return tmpExpression.CreateCore();
             }
 
-            if (!string.IsNullOrWhiteSpace(LogLevelLabel))
-            {
-                log.Labels.Add(PredefinedLabels.LogLevel, LogLevelLabel);
-            }
-
-            return log;
+            return CreateCore();
         }
 
+        /// <summary>
+        /// Writes <see cref="LogEntity"/> with collected parameters into core logger
+        /// </summary>
         public void Write()
         {
             _coreLogger.Log(GetLogLevel(), default, Create(), null, LogEntityFormatter.Yaml);
@@ -205,13 +201,40 @@ namespace MyLab.Log.Dsl
 
         DslExpression Clone()
         {
-            return new DslExpression(_coreLogger, Message, LogLevelLabel)
+            return new DslExpression(_coreLogger, Message, _contexts, LogLevelLabel)
             {
                 ReasonException = ReasonException,
                 Facts = Facts,
                 Conditions = Conditions,
                 Labels = Labels
             };
+        }
+
+        LogEntity CreateCore()
+        {
+            var log = new LogEntity
+            {
+                Exception = ReasonException,
+                Message = Message
+            };
+
+            foreach (var label in Labels)
+                log.Labels.Add(label.Key, label.Value);
+
+            foreach (var fact in Facts)
+                log.Facts.Add(fact.Key, fact.Value);
+
+            if (Conditions.Count != 0)
+            {
+                log.Facts.Add(PredefinedFacts.Conditions, Conditions.ToArray());
+            }
+
+            if (!string.IsNullOrWhiteSpace(LogLevelLabel))
+            {
+                log.Labels.Add(PredefinedLabels.LogLevel, LogLevelLabel);
+            }
+
+            return log;
         }
     }
 }
