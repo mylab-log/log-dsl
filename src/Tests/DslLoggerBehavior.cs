@@ -12,7 +12,7 @@ namespace Tests
         public void ShouldLogAction()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             //Act
             var expression = logger.Action("Foo");
@@ -32,7 +32,7 @@ namespace Tests
         public void ShouldSetLevelLabel(string levelKey, string levelValue)
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             //Act
 
@@ -69,7 +69,7 @@ namespace Tests
         public void ShouldAddReasonException()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             Exception caughtException;
             try
@@ -98,7 +98,7 @@ namespace Tests
         public void ShouldAddNamedFacts()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             //Act
             var expression = logger
@@ -116,7 +116,7 @@ namespace Tests
         public void ShouldAddStringCondition()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             //Act
             var expression = logger
@@ -135,7 +135,7 @@ namespace Tests
         public void ShouldAddExpressionCondition()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             //Act
             var expression = logger
@@ -154,7 +154,7 @@ namespace Tests
         public void ShouldAddLabel()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             //Act
             var expression = logger
@@ -172,7 +172,7 @@ namespace Tests
         public void ShouldAddFlagLabel()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             //Act
             var expression = logger
@@ -190,7 +190,7 @@ namespace Tests
         public void FactDemo()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
             int debugParameter = 1;
 
             //Act
@@ -207,7 +207,7 @@ namespace Tests
         public void LabelDemo()
         {
             //Arrange
-            var logger = CreateCoreLogger().Dsl();
+            var logger = CreateCoreLogger();
 
             //Act
 

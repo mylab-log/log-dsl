@@ -24,4 +24,12 @@ namespace MyLab.Log.Dsl
         /// </summary>
         DslExpression Error(string message);
     }
+
+    /// <summary>
+    /// Specifies DSL style logger for category
+    /// </summary>
+    public interface IDslLogger<TCategoryName> : IDslLogger
+    {
+
+    }
 }
