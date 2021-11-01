@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyLab.Log.Dsl;
 using Xunit;
-
 namespace Tests
 {
     public class LogContextsInjectionBehavior
@@ -21,8 +19,8 @@ namespace Tests
             var sp = new ServiceCollection()
                 .AddLogging(l => l
                     .AddDsl()
+                    .AddDslCtx<TestCtxApplier>()
                     .AddProvider(new TestLoggerProvider(lInstance)))
-                .AddDslLogContext<TestCtxApplier>()
                 .AddScoped(sp => testCtxSrv)
                 .BuildServiceProvider();
             var scope = sp.CreateScope();

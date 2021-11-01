@@ -194,7 +194,7 @@ Labels:
 
 To apply some context parameter for each log message use `context appliers`. 
 
-Context applier is a scoped service which class implement `IDslLogContextApplier`:
+Context applier is a singleton service which class implement `IDslLogContextApplier`:
 
 ```C#
 /// <summary>
@@ -209,9 +209,12 @@ public interface IDslLogContextApplier
 }
 ```
 
-Use `AddDslLogContext` method to integrate context applier into services:
+Use `AddDslCtx` method to integrate context applier into logging:
 
 ```C#
-services.AddDslLogContext<MyCtxApplier>();
+services.AddLogging(l => l
+                    .AddDsl()
+                    .AddDslCtx<MyLogContext>()
+                   );
 ```
 

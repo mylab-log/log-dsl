@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.3.2] - 2021-11-01
+
+### Changed
+
+* Move log context injection from app services into logging builder 
+* Change log contexts lifetime from scope to singleton
+
 ## [3.2.2] - 2021-10-20
 
 ### Added
