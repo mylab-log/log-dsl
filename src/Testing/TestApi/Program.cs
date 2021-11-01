@@ -9,18 +9,18 @@ namespace TestApi
 {
 	public class Program
 	{
-		public static void Main()
+		public static void Main(string[] args)
 		{
 			DataConnection.TurnTraceSwitchOn();
 			DataConnection.WriteTraceLine = (s, s1, t) => Debug.WriteLine(s, s1);
 
-			var host = CreateHostBuilder(null).Build();
+			var host = CreateHostBuilder(args).Build();
 			host.Start();
 			Thread.Sleep(2000);
 			return;
 		}
 
-		public static IHostBuilder CreateHostBuilder(IConfigurationBuilder configBuilder) =>
+		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder()
 				.ConfigureWebHostDefaults(webBuilder =>
 				{

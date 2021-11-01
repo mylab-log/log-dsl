@@ -18,24 +18,25 @@ namespace TestApi
 			_testService = testService;
 		}
 
-		[HttpPost]
-		[Route("v2/drafts")]
-		public async Task<IActionResult> CreateDraft(InfonotClientContext context)
+		[HttpGet]
+		[Route("data")]
+		public async Task<IActionResult> GetData()
 		{			
-			return Ok();
+			return Ok(_testService.GetData());
 		}
 
 	}
 
 	public interface ITestService
 	{
-		void Do();
+		string GetData();
 	}
 
 	class TestService : ITestService
 	{
-		public void Do()
+		public string GetData()
 		{
+			return "some text";
 		}
 	}
 }
