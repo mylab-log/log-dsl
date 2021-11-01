@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
             where TLogCtx : class, IDslLogContextApplier
         {
             if (srv == null) throw new ArgumentNullException(nameof(srv));
-            return srv.AddScoped<IDslLogContextApplier, TLogCtx>();
+            return srv.AddSingleton<IDslLogContextApplier, TLogCtx>();
         }
     }
 }

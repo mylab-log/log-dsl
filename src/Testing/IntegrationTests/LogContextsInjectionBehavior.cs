@@ -1,14 +1,8 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using MyLab.Log.Dsl;
 using Xunit;
-namespace Tests
+
+namespace IntegrationTests
 {
 	public class LogContextsInWebHostBehavior : IClassFixture<WebApplicationFactory<TestApi.Startup>>
 	{
