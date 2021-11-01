@@ -19,8 +19,8 @@ namespace Tests
             var sp = new ServiceCollection()
                 .AddLogging(l => l
                     .AddDsl()
+                    .AddDslCtx<TestCtxApplier>()
                     .AddProvider(new TestLoggerProvider(lInstance)))
-                .AddDslLogContext<TestCtxApplier>()
                 .AddScoped(sp => testCtxSrv)
                 .BuildServiceProvider();
             var scope = sp.CreateScope();

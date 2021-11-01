@@ -169,12 +169,7 @@
             Adds DSL logger into services
             </summary>
         </member>
-        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions">
-            <summary>
-            Extension methods for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddDslLogContext``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDslCtx``1(Microsoft.Extensions.Logging.ILoggingBuilder)">
             <summary>
             Adds context applier for DSL logging
             </summary>
