@@ -5,7 +5,6 @@ using Infonot.Security;
 
 namespace TestApi
 {
-	[Authorize]
 	public partial class DraftController : ControllerBase
 	{
 		private readonly ITestService _testService;
@@ -18,8 +17,7 @@ namespace TestApi
 			_testService = testService;
 		}
 
-		[HttpGet]
-		[Route("data")]
+		[HttpGet("data")]
 		public async Task<IActionResult> GetData()
 		{			
 			return Ok(_testService.GetData());

@@ -20,10 +20,12 @@ namespace IntegrationTests
 			var client = _factory.CreateClient();
 
 			// Act
-			var response  = await client.GetAsync("/data");
+			var response  = await client.GetAsync("data");
+			
 			var text = await response.Content.ReadAsStringAsync();
 
 			// Assert
+			Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
 			Assert.Equal("some text", text);
 		}
 
