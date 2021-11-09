@@ -48,7 +48,9 @@ namespace TestApi2
 			);
 
 			services.AddUrlBasedHttpMetrics();
-		}
+
+            services.Configure<ExceptionProcessingOptions>(o => o.HideError = false);
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
