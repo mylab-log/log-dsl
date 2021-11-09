@@ -2,24 +2,27 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Infonot.Security;
+using MyLab.Log.Dsl;
 
 namespace TestApi
 {
 	public partial class DraftController : ControllerBase
 	{
 		private readonly ITestService _testService;
+		private readonly IDslLogger<DraftController> _logger;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public DraftController(ITestService testService)
+		public DraftController(ITestService testService, IDslLogger<DraftController> logger)
 		{
 			_testService = testService;
+			_logger = logger;
 		}
 
 		[HttpGet("data")]
 		public async Task<IActionResult> GetData()
-		{			
+		{
 			return Ok(_testService.GetData());
 		}
 

@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MyLab.Log.Dsl\MyLab.Log.Dsl.csproj" />
+    <ProjectReference Include="..\TestApi2\TestApi2.csproj" />
     <ProjectReference Include="..\TestApi\TestApi.csproj" />
   </ItemGroup>
 

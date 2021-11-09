@@ -24,6 +24,7 @@ namespace TestApi
 			services.AddSingleton<ITestService, TestService>();
 
 			services.AddLogging(loggingBuilder => loggingBuilder
+				.AddConsole()
 				.AddDsl()
 				.AddDslCtx<TraceIdLogContext>()
 			);
