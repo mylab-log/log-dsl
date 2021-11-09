@@ -7,37 +7,38 @@ using Xunit.Abstractions;
 
 namespace IntegrationTests
 {
-	public class LogContextsInWebHostBehavior : IClassFixture<WebApplicationFactory<TestApi.Startup>>
+	public class LoggerInjectionBehavior : IClassFixture<WebApplicationFactory<TestApi2.Startup>>
 	{
-		private readonly WebApplicationFactory<TestApi.Startup> _factory;
+		private readonly WebApplicationFactory<TestApi2.Startup> _factory;
         private readonly ITestOutputHelper _output;
 
-        public LogContextsInWebHostBehavior(WebApplicationFactory<TestApi.Startup> factory, ITestOutputHelper output)
+        public LoggerInjectionBehavior(WebApplicationFactory<TestApi2.Startup> factory, ITestOutputHelper output)
         {
             _factory = factory;
             _output = output;
         }
 
 		[Fact]
-		public async Task ShouldBuildWebHost()
+		public async Task ShouldNotReturn500()
 		{
 			// Arrange
 			var client = _factory.WithWebHostBuilder(
-                b => b.ConfigureServices(s => 
+                b => b.ConfigureServices(s =>
                     s.AddLogging(l => l
                         .AddXUnit(_output)
                         .AddFilter(f => true)
-                        ))
-                ).CreateClient();
+                    ))
+            ).CreateClient();
 
 			// Act
 			var response  = await client.GetAsync("data");
 			
 			var text = await response.Content.ReadAsStringAsync();
+			_output.WriteLine(text);
 
 			// Assert
 			Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-			Assert.Equal("some text", text);
+			Assert.Equal("ok", text);
 		}
 
 	}

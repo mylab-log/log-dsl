@@ -14,7 +14,7 @@ namespace MyLab.Log.Dsl
         [Obsolete("Use DI instead: services.AddLogging(l => l.AddDslLog()) and DI with IDslLogger<TCat>", true)]
         public static IDslLogger Dsl(this ILogger coreLogger)
         {
-            throw new NotSupportedException();
+            return new DslLogger(coreLogger, null);
         }
     }
 }

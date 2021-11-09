@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.3.3] - 2021-11-09
+
+### Fix
+
+* `ILogger.Dsl()` previously threw an error
+
 ## [3.3.2] - 2021-11-01
 
 ### Changed
