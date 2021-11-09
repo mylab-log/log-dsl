@@ -15,6 +15,7 @@ using Prometheus;
 using OpenTelemetry.Trace;
 using OpenTelemetry.Resources;
 using System;
+using LinqToDB;
 
 namespace TestApi2
 {
@@ -39,11 +40,11 @@ namespace TestApi2
 			services.AddSingleton(Configuration);
 
 			services.AddHttpContextAccessor();
-
+			services.AddDbTools(Configuration, new MySqlDataProvider(ProviderName.MySql));
 			services.AddLogging(loggingBuilder => loggingBuilder
 				.AddConsole()
 				.AddDebug()
-				//.AddDsl()
+				.AddDsl()
 			);
 
 			services.AddUrlBasedHttpMetrics();

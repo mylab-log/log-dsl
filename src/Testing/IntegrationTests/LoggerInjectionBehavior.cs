@@ -4,11 +4,11 @@ using Xunit;
 
 namespace IntegrationTests
 {
-	public class IDslLoggerInjectionBehavior : IClassFixture<WebApplicationFactory<TestApi2.Startup>>
+	public class LoggerInjectionBehavior : IClassFixture<WebApplicationFactory<TestApi2.Startup>>
 	{
 		private readonly WebApplicationFactory<TestApi2.Startup> _factory;
 
-		public IDslLoggerInjectionBehavior(WebApplicationFactory<TestApi2.Startup> factory)
+		public LoggerInjectionBehavior(WebApplicationFactory<TestApi2.Startup> factory)
 		{
 			_factory = factory;
 		}
