@@ -33,7 +33,7 @@ namespace Tests
             Assert.Contains(lInstance.LastMessage.Labels, l => l.Key == testCtxVal && l.Value == "true");
         }
 
-        class TestCtx : IDslLogContext
+        class TestCtx : IDslLogContextApplier
         {
             private readonly TestCtxService _ctx;
 
@@ -42,7 +42,7 @@ namespace Tests
                 _ctx = ctx;
             }
 
-            public DslExpression Set(DslExpression dslExpression)
+            public DslExpression Apply(DslExpression dslExpression)
             {
                 return dslExpression.AndLabel(_ctx.Value);
             }

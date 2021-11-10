@@ -24,7 +24,7 @@ namespace TestApi
 			services.AddLogging(loggingBuilder => loggingBuilder
 				.AddConsole()
 				.AddDsl()
-				.AddDslCtx<TestLogContext>()
+				.AddDslCtx<TestLogContextApplier>()
 			);
 
 		}

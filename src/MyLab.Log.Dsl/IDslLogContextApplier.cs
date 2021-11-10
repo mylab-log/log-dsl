@@ -3,11 +3,11 @@
     /// <summary>
     /// Applies context parameters to <see cref="DslExpression"/>
     /// </summary>
-    public interface IDslLogContext
+    public interface IDslLogContextApplier
     {
         /// <summary>
         /// Applies context parameters to specified <see cref="DslExpression"/>
         /// </summary>
-        DslExpression Set(DslExpression dslExpression);
+        DslExpression Apply(DslExpression dslExpression);
     }
 }
