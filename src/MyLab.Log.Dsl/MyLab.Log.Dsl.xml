@@ -46,7 +46,7 @@
         </member>
         <member name="M:MyLab.Log.Dsl.DslExpression.BecauseOf(System.Exception)">
             <summary>
-            Set exception as log event reason
+            Apply exception as log event reason
             </summary>
         </member>
         <member name="M:MyLab.Log.Dsl.DslExpression.AndFactIs(System.Linq.Expressions.Expression{System.Func{System.Boolean}})">
@@ -171,7 +171,12 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDslCtx``1(Microsoft.Extensions.Logging.ILoggingBuilder)">
             <summary>
-            Adds context applier for DSL logging
+            Adds contextApplier applier for DSL logging
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDslCtx(Microsoft.Extensions.Logging.ILoggingBuilder,MyLab.Log.Dsl.IDslLogContextApplier)">
+            <summary>
+            Adds contextApplier applier for DSL logging
             </summary>
         </member>
     </members>

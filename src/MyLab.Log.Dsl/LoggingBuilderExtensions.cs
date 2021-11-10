@@ -25,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// Adds context applier for DSL logging
+        /// Adds contextApplier applier for DSL logging
         /// </summary>
         public static ILoggingBuilder AddDslCtx<TLogCtx>(this ILoggingBuilder loggingBuilder)
             where TLogCtx : class, IDslLogContextApplier
@@ -33,6 +33,18 @@ namespace Microsoft.Extensions.DependencyInjection
             if (loggingBuilder == null) throw new ArgumentNullException(nameof(loggingBuilder));
             
             loggingBuilder.Services.AddSingleton<IDslLogContextApplier, TLogCtx>();
+
+            return loggingBuilder;
+        }
+
+        /// <summary>
+        /// Adds contextApplier applier for DSL logging
+        /// </summary>
+        public static ILoggingBuilder AddDslCtx(this ILoggingBuilder loggingBuilder, IDslLogContextApplier contextApplier)
+        {
+            if (loggingBuilder == null) throw new ArgumentNullException(nameof(loggingBuilder));
+
+            loggingBuilder.Services.AddSingleton<IDslLogContextApplier>(contextApplier);
 
             return loggingBuilder;
         }

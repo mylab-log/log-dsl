@@ -58,7 +58,7 @@ namespace MyLab.Log.Dsl
         }
 
         /// <summary>
-        /// Set exception as log event reason
+        /// Apply exception as log event reason
         /// </summary>
         public DslExpression BecauseOf(Exception reasonException)
         {
