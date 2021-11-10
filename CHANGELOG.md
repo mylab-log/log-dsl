@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.4.3] - 2021-11-11
+
+### Added
+
+* A log context object can be added into log builder with `AddDslCtx` method
+
 ## [3.3.3] - 2021-11-09
 
 ### Fix

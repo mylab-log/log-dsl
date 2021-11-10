@@ -111,12 +111,12 @@
         </member>
         <member name="T:MyLab.Log.Dsl.IDslLogContextApplier">
             <summary>
-            Applies contextApplier parameters to <see cref="T:MyLab.Log.Dsl.DslExpression"/>
+            Applies context parameters to <see cref="T:MyLab.Log.Dsl.DslExpression"/>
             </summary>
         </member>
         <member name="M:MyLab.Log.Dsl.IDslLogContextApplier.Apply(MyLab.Log.Dsl.DslExpression)">
             <summary>
-            Applies contextApplier parameters to specified <see cref="T:MyLab.Log.Dsl.DslExpression"/>
+            Applies context parameters to specified <see cref="T:MyLab.Log.Dsl.DslExpression"/>
             </summary>
         </member>
         <member name="T:MyLab.Log.Dsl.IDslLogger">
