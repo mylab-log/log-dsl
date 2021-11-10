@@ -28,11 +28,23 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Adds context applier for DSL logging
         /// </summary>
         public static ILoggingBuilder AddDslCtx<TLogCtx>(this ILoggingBuilder loggingBuilder)
-            where TLogCtx : class, IDslLogContextApplier
+            where TLogCtx : class, IDslLogContext
         {
             if (loggingBuilder == null) throw new ArgumentNullException(nameof(loggingBuilder));
             
-            loggingBuilder.Services.AddSingleton<IDslLogContextApplier, TLogCtx>();
+            loggingBuilder.Services.AddSingleton<IDslLogContext, TLogCtx>();
+
+            return loggingBuilder;
+        }
+
+        /// <summary>
+        /// Adds context applier for DSL logging
+        /// </summary>
+        public static ILoggingBuilder AddDslCtx(this ILoggingBuilder loggingBuilder, IDslLogContext context)
+        {
+            if (loggingBuilder == null) throw new ArgumentNullException(nameof(loggingBuilder));
+
+            loggingBuilder.Services.AddSingleton<IDslLogContext>(context);
 
             return loggingBuilder;
         }

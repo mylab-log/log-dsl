@@ -19,7 +19,7 @@ namespace Tests
             var sp = new ServiceCollection()
                 .AddLogging(l => l
                     .AddDsl()
-                    .AddDslCtx<TestCtxApplier>()
+                    .AddDslCtx<TestCtx>()
                     .AddProvider(new TestLoggerProvider(lInstance)))
                 .AddScoped(sp => testCtxSrv)
                 .BuildServiceProvider();
@@ -33,16 +33,16 @@ namespace Tests
             Assert.Contains(lInstance.LastMessage.Labels, l => l.Key == testCtxVal && l.Value == "true");
         }
 
-        class TestCtxApplier : IDslLogContextApplier
+        class TestCtx : IDslLogContext
         {
             private readonly TestCtxService _ctx;
 
-            public TestCtxApplier(TestCtxService ctx)
+            public TestCtx(TestCtxService ctx)
             {
                 _ctx = ctx;
             }
 
-            public DslExpression Apply(DslExpression dslExpression)
+            public DslExpression Set(DslExpression dslExpression)
             {
                 return dslExpression.AndLabel(_ctx.Value);
             }
