@@ -39,14 +39,14 @@
             Gets collection of log event facts
             </summary>
         </member>
-        <member name="M:MyLab.Log.Dsl.DslExpression.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{MyLab.Log.Dsl.IDslLogContext},System.String)">
+        <member name="M:MyLab.Log.Dsl.DslExpression.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{MyLab.Log.Dsl.IDslLogContextApplier},System.String)">
             <summary>
             Initializes a new instance of <see cref="T:MyLab.Log.Dsl.DslExpression"/>
             </summary>
         </member>
         <member name="M:MyLab.Log.Dsl.DslExpression.BecauseOf(System.Exception)">
             <summary>
-            Set exception as log event reason
+            Apply exception as log event reason
             </summary>
         </member>
         <member name="M:MyLab.Log.Dsl.DslExpression.AndFactIs(System.Linq.Expressions.Expression{System.Func{System.Boolean}})">
@@ -109,14 +109,14 @@
             Begin DSL expression for error log-event
             </summary>
         </member>
-        <member name="T:MyLab.Log.Dsl.IDslLogContext">
+        <member name="T:MyLab.Log.Dsl.IDslLogContextApplier">
             <summary>
-            Applies context parameters to <see cref="T:MyLab.Log.Dsl.DslExpression"/>
+            Applies contextApplier parameters to <see cref="T:MyLab.Log.Dsl.DslExpression"/>
             </summary>
         </member>
-        <member name="M:MyLab.Log.Dsl.IDslLogContext.Set(MyLab.Log.Dsl.DslExpression)">
+        <member name="M:MyLab.Log.Dsl.IDslLogContextApplier.Apply(MyLab.Log.Dsl.DslExpression)">
             <summary>
-            Applies context parameters to specified <see cref="T:MyLab.Log.Dsl.DslExpression"/>
+            Applies contextApplier parameters to specified <see cref="T:MyLab.Log.Dsl.DslExpression"/>
             </summary>
         </member>
         <member name="T:MyLab.Log.Dsl.IDslLogger">
@@ -171,12 +171,12 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDslCtx``1(Microsoft.Extensions.Logging.ILoggingBuilder)">
             <summary>
-            Adds context applier for DSL logging
+            Adds contextApplier applier for DSL logging
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDslCtx(Microsoft.Extensions.Logging.ILoggingBuilder,MyLab.Log.Dsl.IDslLogContext)">
+        <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDslCtx(Microsoft.Extensions.Logging.ILoggingBuilder,MyLab.Log.Dsl.IDslLogContextApplier)">
             <summary>
-            Adds context applier for DSL logging
+            Adds contextApplier applier for DSL logging
             </summary>
         </member>
     </members>
