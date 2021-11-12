@@ -53,7 +53,7 @@ namespace TestApi
 
 		public string GetTestFact()
 		{
-			var log = _logger.Error("ошибка");
+			var log = _logger.Error("ошибка").Create();
 			return log.Facts.ContainsKey("test-fact") ?  log.Facts["test-fact"].ToString() : "<no fact found>";
 		}
 	}
