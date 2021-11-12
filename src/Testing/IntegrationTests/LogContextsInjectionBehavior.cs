@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyLab.Log.Dsl;
+using TestApi;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -40,6 +42,28 @@ namespace IntegrationTests
 			Assert.Equal("some text", text);
 		}
 
-	}
 
+		[Fact]
+		public async Task ShouldAddFactByDslContext()
+		{
+			// Arrange
+			var client = _factory.WithWebHostBuilder(
+				b => b.ConfigureServices(s =>
+					s.AddLogging(l => l
+						.AddXUnit(_output)
+						.AddFilter(f => true)
+					))
+			).CreateClient();
+
+			// Act
+			var response = await client.GetAsync("test-fact");
+
+			var text = await response.Content.ReadAsStringAsync();
+			_output.WriteLine(text);
+
+			// Assert
+			Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+			Assert.Equal(TestLogContextApplier.TestFactValue, text);
+		}
+	}
 }
