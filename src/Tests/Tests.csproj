@@ -8,11 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="MartinCostello.Logging.XUnit" Version="0.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.20" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0-rc.2.21480.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.20" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="Moq" Version="4.9.0" />
-    <PackageReference Include="MyLab.Logging" Version="2.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
@@ -21,9 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MyLab.Log.Dsl\MyLab.Log.Dsl.csproj" />
-    <ProjectReference Include="..\TestApi2\TestApi2.csproj" />
-    <ProjectReference Include="..\TestApi\TestApi.csproj" />
+    <ProjectReference Include="..\MyLab.Log.Dsl\MyLab.Log.Dsl.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,13 +19,14 @@ namespace Tests
         {
             var services = new ServiceCollection()
                 .AddLogging(c => c
-                    .AddDsl()
                     .AddXUnit(_output)
                     .SetMinimumLevel(LogLevel.Debug)
                 )
                 .BuildServiceProvider();
 
-            return services.GetService<IDslLogger<DslLoggerBehavior>>();
+            var loggerFactory = services.GetService<ILoggerFactory>();
+
+            return loggerFactory.CreateLogger<DslLoggerBehavior>().Dsl();
         }
     }
 }

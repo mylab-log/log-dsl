@@ -11,10 +11,9 @@ namespace MyLab.Log.Dsl
         /// <summary>
         /// Create DSL-logger for core logger
         /// </summary>
-        [Obsolete("Use DI instead: services.AddLogging(l => l.AddDslLog()) and DI with IDslLogger<TCat>", true)]
         public static IDslLogger Dsl(this ILogger coreLogger)
         {
-            return new DslLogger(coreLogger, null);
+            return new DslLogger(coreLogger);
         }
     }
 }

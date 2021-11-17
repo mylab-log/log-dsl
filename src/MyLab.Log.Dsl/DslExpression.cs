@@ -14,7 +14,6 @@ namespace MyLab.Log.Dsl
     public class DslExpression
     {
         private readonly ILogger _coreLogger;
-        private readonly IEnumerable<IDslLogContextApplier> _contexts;
 
         /// <summary>
         /// Log message
@@ -49,10 +48,9 @@ namespace MyLab.Log.Dsl
         /// <summary>
         /// Initializes a new instance of <see cref="DslExpression"/>
         /// </summary>
-        public DslExpression(ILogger coreLogger, string message, IEnumerable<IDslLogContextApplier> contexts, string logLevelLabel = null)
+        public DslExpression(ILogger coreLogger, string message, string logLevelLabel = null)
         {
             _coreLogger = coreLogger;
-            _contexts = contexts;
             Message = message;
             LogLevelLabel = logLevelLabel;
         }
@@ -137,16 +135,6 @@ namespace MyLab.Log.Dsl
         /// </summary>
         public LogEntity Create()
         {
-            if (_contexts != null)
-            {
-                var tmpExpression = Clone();
-
-                foreach (var dslLogContextApplier in _contexts)
-                    tmpExpression = dslLogContextApplier.Apply(tmpExpression);
-
-                return tmpExpression.CreateCore();
-            }
-
             return CreateCore();
         }
 
@@ -201,7 +189,7 @@ namespace MyLab.Log.Dsl
 
         DslExpression Clone()
         {
-            return new DslExpression(_coreLogger, Message, _contexts, LogLevelLabel)
+            return new DslExpression(_coreLogger, Message, LogLevelLabel)
             {
                 ReasonException = ReasonException,
                 Facts = Facts,
