@@ -18,9 +18,8 @@ There are several points about it:
 
 The typically points is:
 
-* add `DSL` into logging system
-
-*  get `IDslLogger` with `DI`
+* get `ILogger` with `DI`
+* get `IDlsLogger` with `ILogger.Dsl()` extension method
 * write `dsl` expression with special methods
   * begin from log-level method to define log-level specific parameters
   * set reason exception 
@@ -31,15 +30,11 @@ The typically points is:
 The following example shows how to use `dsl` logger:
 
 ```C#
-services.AddLogging(l => l.AddDsl());
-```
-
-```C#
 class Example
 {
     private IDslLogger _log;
 
-    public Example(IDslLogger<Example> logger)
+    public Example(ILogger<Example> logger)
     {
         _log = logger.Dsl();
     }
@@ -189,32 +184,3 @@ Labels:
   priority: high
   good_message: true
 ```
-
-## Contexts
-
-To apply some context parameter for each log message use `context appliers`. 
-
-Context applier is a singleton service which class implement `IDslLogContextApplier`:
-
-```C#
-/// <summary>
-/// Applies context parameters to <see cref="DslExpression"/>
-/// </summary>
-public interface IDslLogContextApplier
-{
-    /// <summary>
-    /// Applies context parameters to specified <see cref="DslExpression"/>
-    /// </summary>
-    DslExpression Apply(DslExpression dslExpression);
-}
-```
-
-Use `AddDslCtx` method to integrate context applier into logging:
-
-```C#
-services.AddLogging(l => l
-                    .AddDsl()
-                    .AddDslCtx<MyLogContext>()
-                   );
-```
-
