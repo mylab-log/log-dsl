@@ -39,7 +39,7 @@
             Gets collection of log event facts
             </summary>
         </member>
-        <member name="M:MyLab.Log.Dsl.DslExpression.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.Collections.Generic.IEnumerable{MyLab.Log.Dsl.IDslLogContextApplier},System.String)">
+        <member name="M:MyLab.Log.Dsl.DslExpression.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String)">
             <summary>
             Initializes a new instance of <see cref="T:MyLab.Log.Dsl.DslExpression"/>
             </summary>
@@ -109,16 +109,6 @@
             Begin DSL expression for error log-event
             </summary>
         </member>
-        <member name="T:MyLab.Log.Dsl.IDslLogContextApplier">
-            <summary>
-            Applies context parameters to <see cref="T:MyLab.Log.Dsl.DslExpression"/>
-            </summary>
-        </member>
-        <member name="M:MyLab.Log.Dsl.IDslLogContextApplier.Apply(MyLab.Log.Dsl.DslExpression)">
-            <summary>
-            Applies context parameters to specified <see cref="T:MyLab.Log.Dsl.DslExpression"/>
-            </summary>
-        </member>
         <member name="T:MyLab.Log.Dsl.IDslLogger">
             <summary>
             Specifies DSL-style logger
@@ -157,26 +147,6 @@
         <member name="M:MyLab.Log.Dsl.LoggerExtensions.Dsl(Microsoft.Extensions.Logging.ILogger)">
             <summary>
             Create DSL-logger for core logger
-            </summary>
-        </member>
-        <member name="T:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions">
-            <summary>
-            Extensions for <see cref="T:Microsoft.Extensions.Logging.ILoggingBuilder"/>
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDsl(Microsoft.Extensions.Logging.ILoggingBuilder)">
-            <summary>
-            Adds DSL logger into services
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDslCtx``1(Microsoft.Extensions.Logging.ILoggingBuilder)">
-            <summary>
-            Adds contextApplier applier for DSL logging
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.LoggingBuilderExtensions.AddDslCtx(Microsoft.Extensions.Logging.ILoggingBuilder,MyLab.Log.Dsl.IDslLogContextApplier)">
-            <summary>
-            Adds contextApplier applier for DSL logging
             </summary>
         </member>
     </members>

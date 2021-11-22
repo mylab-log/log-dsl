@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.5.3] - 2021-11-17
+
+### Removed
+
+* Log contexts
+* `IDslLogger` injection with app `DI`
+
 ## [3.4.3] - 2021-11-11
 
 ### Added
