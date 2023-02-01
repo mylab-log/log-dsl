@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.5.4] - 2023-02-01
+
+### Changed
+
+* update `MyLab.Log` reference lib: 3.2.9 -> 3.5.21
+
 ## [3.5.3] - 2021-11-17
 
 ### Removed
