@@ -48,6 +48,11 @@ namespace MyLab.Log.Dsl
             return new DslExpression(_coreLogger, message, PredefinedLogLevels.Error);
         }
 
+        public IDisposable BeginScope(object scope)
+        {
+            return _coreLogger.BeginScope(scope);
+        }
+
         void CheckMessageForWhitespace(string val)
         {
             if (string.IsNullOrWhiteSpace(val))

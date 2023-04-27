@@ -2,6 +2,7 @@
 using System.Linq;
 using MyLab.Log;
 using MyLab.Log.Dsl;
+using MyLab.Log.Scopes;
 using Xunit;
 
 namespace Tests
@@ -166,6 +167,30 @@ namespace Tests
 
             //Assert
             Assert.Equal("baz", log.Labels["bar"]);
+        }
+
+        [Fact]
+        public void ShouldBeginScope()
+        {
+            //Arrange
+            var logger = CreateCoreLogger();
+
+            //Act
+            var expression = logger
+                .Action("Foo");
+
+            LogEntity logWithScope;
+
+            using (logger.BeginScope(new LabelLogScope("bar", "baz")))
+            {
+                logWithScope = expression.Write();
+            }
+
+            var logWithoutScope = expression.Create();
+
+            //Assert
+            Assert.Contains(logWithScope.Labels, l=> l is {Key: "bar", Value: "baz"});
+            Assert.DoesNotContain(logWithoutScope.Labels, l=> l is {Key: "bar", Value: "baz"});
         }
 
         [Fact]

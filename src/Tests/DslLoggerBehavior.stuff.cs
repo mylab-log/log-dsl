@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyLab.Log;
 using MyLab.Log.Dsl;
+using MyLab.Log.XUnit;
 using Xunit.Abstractions;
 
 namespace Tests
@@ -21,6 +23,7 @@ namespace Tests
                 .AddLogging(c => c
                     .AddXUnit(_output)
                     .SetMinimumLevel(LogLevel.Debug)
+                    .AddMyLabConsole()
                 )
                 .BuildServiceProvider();
 
