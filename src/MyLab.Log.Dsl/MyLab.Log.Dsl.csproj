@@ -6,9 +6,9 @@
     <PackageProjectUrl>https://github.com/mylab-log/log-dsl</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mylab-log/log-dsl.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>3.6.4.2704</AssemblyVersion>
-    <Version>3.6.4</Version>
-    <FileVersion>3.6.4.2704</FileVersion>
+    <AssemblyVersion>3.6.5.2804</AssemblyVersion>
+    <Version>3.6.5</Version>
+    <FileVersion>3.6.5.2804</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIcon>log.png</PackageIcon>
     <Description>Provides abilities to make log message by `Domain Specific Language` style. Uses buil-in `.NET Core` logging.</Description>

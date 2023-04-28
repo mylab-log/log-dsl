@@ -141,11 +141,9 @@ namespace MyLab.Log.Dsl
         /// <summary>
         /// Writes <see cref="LogEntity"/> with collected parameters into core logger
         /// </summary>
-        public LogEntity Write()
+        public void Write()
         {
-            var logEntity = Create();
-            _coreLogger.Log(GetLogLevel(), default, logEntity, null, LogEntityFormatter.Yaml);
-            return logEntity;
+            _coreLogger.Log(GetLogLevel(), default, Create(), null, LogEntityFormatter.Yaml);
         }
 
         private LogLevel GetLogLevel()

@@ -17,7 +17,7 @@ namespace Tests
             _output = output;
         }
 
-        private IDslLogger CreateCoreLogger()
+        private (IDslLogger Dsl, ILogger Core) CreateCoreLogger()
         {
             var services = new ServiceCollection()
                 .AddLogging(c => c
@@ -29,7 +29,9 @@ namespace Tests
 
             var loggerFactory = services.GetService<ILoggerFactory>();
 
-            return loggerFactory.CreateLogger<DslLoggerBehavior>().Dsl();
+            var coreLogger = loggerFactory.CreateLogger<DslLoggerBehavior>();
+
+            return (coreLogger.Dsl(), coreLogger);
         }
     }
 }
