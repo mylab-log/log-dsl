@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using MyLab.Log;
 using MyLab.Log.Dsl;
+using MyLab.Log.Scopes;
 using Xunit;
 
 namespace Tests
@@ -12,7 +14,7 @@ namespace Tests
         public void ShouldLogAction()
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
 
             //Act
             var expression = logger.Action("Foo");
@@ -32,7 +34,7 @@ namespace Tests
         public void ShouldSetLevelLabel(string levelKey, string levelValue)
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
 
             //Act
 
@@ -69,7 +71,7 @@ namespace Tests
         public void ShouldAddReasonException()
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
 
             Exception caughtException;
             try
@@ -98,7 +100,7 @@ namespace Tests
         public void ShouldAddNamedFacts()
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
 
             //Act
             var expression = logger
@@ -116,7 +118,7 @@ namespace Tests
         public void ShouldAddStringCondition()
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
 
             //Act
             var expression = logger
@@ -135,7 +137,7 @@ namespace Tests
         public void ShouldAddExpressionCondition()
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
 
             //Act
             var expression = logger
@@ -154,7 +156,7 @@ namespace Tests
         public void ShouldAddLabel()
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
 
             //Act
             var expression = logger
@@ -169,10 +171,36 @@ namespace Tests
         }
 
         [Fact]
-        public void ShouldAddFlagLabel()
+        public void ShouldBeginScope()
         {
             //Arrange
             var logger = CreateCoreLogger();
+
+            //Act
+            var expression = logger.Dsl
+                .Action("Foo");
+
+            LogEntity logWithScope;
+
+            using (logger.Dsl.BeginScope(new LabelLogScope("bar", "baz")))
+            {
+                logWithScope = expression.Create();
+
+                logger.Core.Log(LogLevel.Information, default, logWithScope, null, LogEntityFormatter.Yaml);
+            }
+
+            var logWithoutScope = expression.Create();
+
+            //Assert
+            Assert.Contains(logWithScope.Labels, l=> l is {Key: "bar", Value: "baz"});
+            Assert.DoesNotContain(logWithoutScope.Labels, l=> l is {Key: "bar", Value: "baz"});
+        }
+
+        [Fact]
+        public void ShouldAddFlagLabel()
+        {
+            //Arrange
+            var logger = CreateCoreLogger().Dsl;
 
             //Act
             var expression = logger
@@ -190,7 +218,7 @@ namespace Tests
         public void FactDemo()
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
             int debugParameter = 1;
 
             //Act
@@ -207,7 +235,7 @@ namespace Tests
         public void LabelDemo()
         {
             //Arrange
-            var logger = CreateCoreLogger();
+            var logger = CreateCoreLogger().Dsl;
 
             //Act
 

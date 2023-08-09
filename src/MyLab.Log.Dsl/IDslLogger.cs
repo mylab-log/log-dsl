@@ -23,6 +23,10 @@ namespace MyLab.Log.Dsl
         /// Begin DSL expression for error log-event
         /// </summary>
         DslExpression Error(string message);
+        /// <summary>
+        /// Begins a logical operation scope
+        /// </summary>
+        IDisposable BeginScope(object scope);
     }
 
     /// <summary>

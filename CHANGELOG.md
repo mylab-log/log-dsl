@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.6.5] - 2023-08-09
+
+### Added
+
+* support scope defining in `dsl-logger`
+
+### Fix
+
+* rollback `Write` method return type from a `void` to `LogEntity`
+
 ## [3.5.4] - 2023-02-01
 
 ### Changed

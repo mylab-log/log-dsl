@@ -134,6 +134,11 @@
             Begin DSL expression for error log-event
             </summary>
         </member>
+        <member name="M:MyLab.Log.Dsl.IDslLogger.BeginScope(System.Object)">
+            <summary>
+            Begins a logical operation scope
+            </summary>
+        </member>
         <member name="T:MyLab.Log.Dsl.IDslLogger`1">
             <summary>
             Specifies DSL style logger for category

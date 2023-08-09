@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyLab.Log;
 using MyLab.Log.Dsl;
+using MyLab.Log.XUnit;
 using Xunit.Abstractions;
 
 namespace Tests
@@ -15,18 +17,21 @@ namespace Tests
             _output = output;
         }
 
-        private IDslLogger CreateCoreLogger()
+        private (IDslLogger Dsl, ILogger Core) CreateCoreLogger()
         {
             var services = new ServiceCollection()
                 .AddLogging(c => c
                     .AddXUnit(_output)
                     .SetMinimumLevel(LogLevel.Debug)
+                    .AddMyLabConsole()
                 )
                 .BuildServiceProvider();
 
             var loggerFactory = services.GetService<ILoggerFactory>();
 
-            return loggerFactory.CreateLogger<DslLoggerBehavior>().Dsl();
+            var coreLogger = loggerFactory.CreateLogger<DslLoggerBehavior>();
+
+            return (coreLogger.Dsl(), coreLogger);
         }
     }
 }
