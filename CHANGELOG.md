@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file
 
 Log format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.7.5] - 2023-11-03
+
+### Changed
+
+* switch to `.net5.0`
+
 ## [3.6.5] - 2023-08-09
 
 ### Added
